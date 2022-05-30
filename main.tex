@@ -8,39 +8,6 @@
 
 \usepackage[left=30mm, right=15mm, top=20mm, bottom=20mm]{geometry}
 
-\usepackage{csquotes} % используется biblatex
-\usepackage[
-    backend=biber,
-    bibstyle=gost-numeric,
-    language=auto,
-    autolang=other,
-    sorting=none,
-]{biblatex}
-
-% Перечисление использованных источников в biblatex
-\begin{filecontents*}[overwrite]{biblio.bib}
-    @book{bib:recomendations,
-      author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
-      year = {2022},
-      title = {Методические рекомендации по выполнению курсовой работы по дисциплине <<Языки программирования>>},
-      publisher = {МИРЭА --- Российский технологический университет},
-    }
-    @online{bib:mntemplate,
-      author = {Mirea~Ninja},
-      title = {LaTeX шаблон для написания отчетов/дипломов/курсовых работ},
-      url = {https://github.com/mirea-ninja/Latex-Template-for-Report-Diploma-Thesis},
-      urldate = {2022-05-29}
-    }
-    @online{bib:prince,
-      author = {Сент-Экзюпери, Антуан},
-      title = {Маленький принц},
-      year = 1943,
-      url = {http://www.chertyaka.ru/detskie_skazki/exuperi/malenkii_princ8.php},
-      urldate = {2022-05-29}
-}
-\end{filecontents*}
-\addbibresource{biblio.bib}
-
 \usepackage{indentfirst} % Красная строка у первого абзаца раздела
 
 \usepackage{graphicx}
@@ -62,9 +29,11 @@
 
 % Настройка раздела, подраздела, подподраздела
 \usepackage{titlesec}
-\titleformat{\section}{\clearpage\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.2em}{}
+\titleformat{\section}{\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.2em}{}
 \titleformat{\subsection}{\filcenter\bfseries}{\thesubsection}{.2em}{}
 \titleformat{\subsubsection}{\filcenter\bfseries}{\thesubsubsection}{.2em}{}
+
+\AddToHook{cmd/section/before}{\clearpage} % Начинать раздел с новой страницы
 
 \renewenvironment{abstract}{\clearpage\section*{\MakeUppercase{\abstractname}}}{}
 
@@ -83,15 +52,27 @@
 \renewcommand\labelenumiv{\asbuk{enumiv})}
 
 \makeatletter
-% Буквы для нумерации списка (исключены ё, з, щ, ч, ъ, ы, ь
+% Буквы для нумерации списка (исключены ё, з, щ, ч, ъ, ы, ь)
 % Подробнее https://ctan.math.illinois.edu/macros/latex/required/babel/contrib/russian/russianb.pdf 
 \def\russian@alph#1{\ifcase#1\or
     а\or б\or в\or г\or д\or е\or ж\or
     и\or к\or л\or м\or н\or о\or п\or 
     р\or с\or т\or у\or ф\or х\or ц\or 
     ш\or э\or ю\or я\else\@ctrerr\fi}
-    
-\patchcmd{\l@section}{#1}{\MakeUppercase{#1}}{}{} % Разделы в содержании в верхнем регистре
+\def\russian@Alph#1{\ifcase#1\or
+    А\or Б\or В\or Г\or Д\or Е\or Ж\or
+    И\or К\or Л\or М\or Н\or О\or П\or 
+    Р\or С\or Т\or У\or Ф\or Х\or Ц\or 
+    Ш\or Э\or Ю\or Я\else\@ctrerr\fi}
+
+\patchcmd{\l@section}{#1}{\textnormal{\uppercase{#1}}}{}{} % Разделы в содержании без выделения жирным, в верхнем регистре
+\patchcmd{\l@section}{#2}{\textnormal{#2}}{}{} % Страницы без выделения жирным
+
+\patchcmd{\appendix}{\@Alph}{\MakeUppercase{\appendixname} \russian@Alph}{}{} % Нумерация приложения
+
+\apptocmd{\appendix}{
+    \titleformat{\section}{\filcenter\bfseries}{\thesection}{.2em}{}
+    }{}{} % Изменение формата раздела в приложениях
 \makeatother
 
 \usepackage[labelsep=endash]{caption} % Настройка пунктуации
@@ -104,11 +85,49 @@
 % Метаданные .pdf документа, отключение подсветки ссылок
 \hypersetup{pdftitle={Языки программирования}, pdfauthor={В. С. Верхотуров}, colorlinks=false, pdfborder={0 0 0}}
 
+\usepackage{csquotes} % используется biblatex
+\usepackage[
+    backend=biber,
+    bibstyle=gost-numeric,
+    language=auto,
+    autolang=other,
+    sorting=none,
+]{biblatex}
+
+% Перечисление использованных источников в biblatex
+% Подробнее https://www.ctan.org/pkg/biblatex-gost
+\begin{filecontents*}[overwrite]{biblio.bib}
+    @book{bib:recomendations,
+      author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
+      year = {2022},
+      title = {Методические рекомендации по выполнению курсовой работы по дисциплине <<Языки программирования>>},
+      publisher = {МИРЭА --- Российский технологический университет},
+    }
+    @online{bib:mntemplate,
+      author = {Mirea~Ninja},
+      title = {LaTeX шаблон для написания отчетов/дипломов/курсовых работ},
+      url = {https://github.com/mirea-ninja/Latex-Template-for-Report-Diploma-Thesis},
+      urldate = {2022-05-29}
+    }
+    @online{bib:githubrepo,
+      author = {Верхотуров, В. С.},
+      title = {LaTeX шаблон для курсовой работы по дисциплине <<Языки программирования>> РТУ МИРЭА},
+      year = 2022,
+      url = {https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages},
+      urldate = {2022-05-29}
+    }
+    @online{bib:prince,
+      author = {Сент-Экзюпери, Антуан},
+      title = {Маленький принц},
+      year = 1943,
+      url = {http://www.chertyaka.ru/detskie_skazki/exuperi/malenkii_princ8.php},
+      urldate = {2022-05-29}
+    }
+\end{filecontents*}
+\addbibresource{biblio.bib}
 
 \begin{document}
 
-% Желательно использовать выданный преподавателем титульник. См. как https://www.ctan.org/pkg/pdfpages
-% При использовании своего титульника удалить окружение titlepage (\begin{titlepage}...\end{titlepage}), класс документа поменять с \documentclass[14pt, a4paper, titlepage]{extarticle} на \documentclass[14pt, a4paper]{extarticle}
 \begin{titlepage}
     \begin{center}
         \includegraphics{mirea_coat_of_arms.png} \\
@@ -133,23 +152,45 @@
 \end{titlepage}
 
 \begin{abstract}
-    Вы читаете документ, имеющий настройки, отвечающие рекомендациям~\cite{bib:recomendations}, и скомпилированный системой компьютерной верстки Xe\LaTeX{} из дистрибутива TeX Live.
+    Вы читаете документ, имеющий настройки, отвечающие разделу 3 <<Требования по оформлению работы>> ~\cite{bib:recomendations}, и скомпилированный системой компьютерной верстки Xe\LaTeX{} из дистрибутива TeX Live.
     
-    Рекомендуется использовать Overleaf для компиляции документа (убедитесь, что в опциях проекта стоит компилятор XeLaTeX, иначе не компилируется).
+    Рекомендуется использовать \url{overleaf.com} для компиляции документа (убедитесь, что в опциях проекта стоит компилятор XeLaTeX).
     
-    Этот документ не имеет заранее использованных пакетов и определенных макрокоманд для пользователя, в родительской директории этого \verb".tex" файла должна лежать картинка герба университета {\\\centering mirea\_coat\_of\_arms.png.\\} Более дружелюбный шаблон, но отвечающий не всем рекомендациям~\cite{bib:recomendations} является \cite{bib:mntemplate}.
+    В этом документ использованы только пакеты, отвечающие за форматирование (исключение --- graphicx). Переопределено окружение abstract, новые макрокоманды не объявлены. В родительской директории этого \verb".tex" файла должна лежать картинка герба университета mirea\_coat\_of\_arms.png. Настройки форматирования, библиографический список находятся в преамбуле (при удалении всего содержимого в окружении document настройки форматирования не изменятся).
     
-    По замечаниям в форматировании писать в Issues \url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}.
+    Более дружелюбный шаблон, но не ставящий задачу соответствовать рекомендациям~\cite{bib:recomendations} является \cite{bib:mntemplate}.
     
-    \textbf{tex в docx}
+    Замечания о расхождении с~\cite{bib:recomendations} писать в Issues~\cite{bib:githubrepo}.
     
-    Согласно разделу 1.1 СМКО МИРЭА 7.5.1/03.П.69-16 требуется формат .doc(.docx), .tex не может быть напрямую экспортирован в .doc(.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx.
+    \textbf{.tex в .docx (не рекомендуется)}
+    
+    Раздел 1.1 СМКО МИРЭА 7.5.1/03.П.69-16 рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). .tex не может быть напрямую экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx. Математические формулы экспортируются некорректно, редактировать такой документ с сохранением форматирования сложно.
+    
+    \textbf{Титульная страница}
+    
+    Рекомендуется использовать выданную~(-ые) преподавателем ти\-туль\-ну\-ю~\mbox{(-ые)} страницу~(-ы), экспортировать в .pdf и включить в этот документ (например, с помощью пакета pdfpages).
+    
+    При использовании своей титульной страницы необходимо удалить окружение titlepage
+    \begin{verbatim}
+\begin{titlepage}
+...
+\end{titlepage}
+    \end{verbatim}
+    класс документа поменять с \\ \verb"\documentclass[14pt, a4paper, titlepage]{extarticle}" \\ на \\ \verb"\documentclass[14pt, a4paper]{extarticle}"
+    
+    \textbf{.pdf метаданные}
+    
+    Не забудьте изменить в преамбуле в команде \verb"\hypersetup" имя автора, название документа на свои.
+    
+    \textbf{Использование графики}
+    
+    Для графики уже включен пакет \texttt{graphicx}, чтобы вставить герб на титульную страницу и в рис.~\ref{fig:test_label}.
 
     \textbf{Об \texttt{abstract}}
     
-    Окружение abstract переопределено и является алиасом: \\ \verb"\clearpage\section*{\MakeUppercase{\abstractname}}", \\ окружение можно заменить на привычную команду: \\ \verb"\section*{"Аннотация\verb"}".
+    В случае отсутствия аннотации в работе удалить окружение abstract: \\\verb"\begin{abstract} ... \end{abstract}".
     
-    В случае отсутствия аннотации удалить окружение abstract: \\\verb"\begin{abstract} ... \end{abstract}".
+    Окружение abstract можно заменить на \\ \verb"\section*{" Аннотация \verb"}" \\ и получить визуально одинаковый результат.
 \end{abstract}
 
 \clearpage
@@ -276,7 +317,7 @@
 \subsection{Формулы}
 
 \begin{equation}\label{eq:test_label}
-    a+b=c
+    (\text{минус}\,a)\times b=c
 \end{equation}
 
 Представлена формула~\ref{eq:test_label}.
@@ -285,8 +326,23 @@
 
 Данный \verb".tex" документ создан на основе рекомендаций~\parencite{bib:recomendations}.
 
+\subsection{Ссылка на приложение}
+
+Ссылка на приложение выглядит так~\ref{appendix:test_label}.
+
+
 \clearpage
 \addcontentsline{toc}{section}{Список использованных источников}
 \printbibliography[title={Список использованных источников}]
+
+
+\appendix
+
+\section[]{\\Название первого приложения}
+\label{appendix:test_label}
+
+За порядком приложений необходимо следить самостоятельно.
+
+\section[]{\\Название второго приложения}
 
 \end{document}
