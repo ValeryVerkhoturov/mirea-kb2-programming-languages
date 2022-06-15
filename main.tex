@@ -14,7 +14,7 @@
 
 \parindent=1.25cm % Размер красной строки
 
-\parskip=6pt % Отступ между абзацами
+\parskip=0pt % Отступ между абзацами
 
 \righthyphenmin=2 % Разрешить переносить слоги в 2 буквы (стандартное значение 3)
 
@@ -24,6 +24,8 @@
 
 % Настройка заголовка оглавления
 \addto\captionsrussian{\renewcommand{\contentsname}{Оглавление}}
+
+\usepackage[normalem]{ulem} % underline some lines
 
 
 \usepackage{tocloft}
@@ -35,9 +37,9 @@
 
 % Настройка раздела, подраздела, подподраздела
 \usepackage{titlesec}
-\titleformat{\section}{\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.2em}{}
-\titleformat{\subsection}{\filcenter\bfseries}{\thesubsection}{.2em}{}
-\titleformat{\subsubsection}{\filcenter\bfseries}{\thesubsubsection}{.2em}{}
+\titleformat{\section}{\parskip=6pt\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.5em}{}
+\titleformat{\subsection}{\filcenter\bfseries}{\thesubsection}{.5em}{}
+\titleformat{\subsubsection}{\filcenter\bfseries}{\thesubsubsection}{.5em}{}
 
 \AddToHook{cmd/section/before}{\clearpage} % Начинать раздел с новой страницы
 
@@ -118,7 +120,7 @@
 % Подробнее https://www.ctan.org/pkg/biblatex-gost
 \begin{filecontents*}[overwrite]{biblio.bib}
     @book{bib:recomendations,
-      author = {Мерсов, А.А. and Русаков, А.М. and Филатов, В.В.},
+      author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
       year = {2022},
       title = {Методические рекомендации по выполнению курсовой работы по дисциплине <<Языки программирования>>},
       publisher = {МИРЭА --- Российский технологический университет},
@@ -144,61 +146,62 @@
 \begin{document}
 
 \begin{titlepage}
+    \pagestyle{empty}
+    \newcommand\signaturePlace{\uline{\hspace{3cm}}}
+    \newcommand\datePlace{\mbox{\uline{<<\qquad>>\hspace{2cm}\the\year{}~г.}}}
     \begin{center}
         \includegraphics[width=2.5cm]{MIREA_Gerb_Black.eps} \\
         МИНОБРНАУКИ РОССИИ \\ 
         Федеральное государственное бюджетное образовательное учреждение высшего образования \\
         \textbf{<<МИРЭА --- Российский технологический университет>>} \\
-        \textbf{\fontsize{16pt}{16pt}\selectfont{}РТУ МИРЭА}\\
-        Институт кибербезопасности и цифровых технологий \\
-        Кафедра КБ-14 <<Цифровые технологии обработки данных>> \\
+        \textbf{\fontsize{16pt}{16pt}\selectfont{}РТУ МИРЭА} \\
+        \uline{Институт кибербезопасности и цифровых технологий} \\
+        \uline{Кафедра КБ-2 <<Прикладные информационные технологии>>} \\
         \begin{flushright}
-        Утверждаю \\
-        Заведующий кафедрой КБ-2 \\
-        Фамилия И.О.\quad\underline{\qquad\qquad}\\
-        \underline{<<\qquad>>\qquad\qquad\the\year{} г.}
+            \begin{minipage}{.5\textwidth}
+                \centering
+                Утверждаю \\
+                Заведующий кафедрой КБ-2 \\
+                Фамилия~И.О. \signaturePlace \\
+                \datePlace
+            \end{minipage}
         \end{flushright}
-        \fontsize{16pt}{16pt}\selectfont
-        \textbf{КУРСОВАЯ РАБОТА} \\
-        по дисциплине \textbf{Языки программирования}
+        {\fontsize{16pt}{16pt}\selectfont
+        \textbf{КУРСОВАЯ РАБОТА}} \\
+        по дисциплине \uline{Языки программирования}
     \end{center}
-    \textbf{Тема курсовой работы <<Разработка файловой базы данных студентов на основе принципов ООП>>} \\
-    \begin{tabular}{@{}lr}
-        Студент группы БСБО-05-20 Верхотуров Валерий Сергеевич & \underline{\phantom{\qquad\qquad}} \\
-        Руководитель курсового проекта (работы) \hrulefill & \hrulefill \\
-        Рецензент (при наличии) \hrulefill & \hrulefill \\
-    \end{tabular}\\
-    \noindent{}Работа предоставлена к защите <<\underline{\qquad}>> июня \the\year{} г.\\
-    \noindent{}Допущен к защите <<\underline{\qquad}>> июня \the\year{} г.\\
+    \textbf{Тема курсовой работы \uline{<<Разработка файловой базы данных студентов на основе принципов ООП>>}} \bigskip\\
+    Студент группы \uline{БСБО-05-20 Верхотуров Валерий Сергеевич} \hfill\signaturePlace \bigskip\\
+    Руководитель курсового проекта (работы) \uline{\hspace{4cm}} \hfill\signaturePlace \bigskip\\
+    Рецензент (при наличии) \uline{\hspace{7.7cm}} \hfill\signaturePlace \bigskip\\
+    Работа предоставлена к защите \hfill\datePlace \bigskip\\
+    Допущен к защите \hfill\datePlace \\
     \begin{center}
-        \vfill{}Москва -- \the\year{} г.
+        \vfill{}Москва -- \the\year{}~г.
     \end{center}
     \newpage
-    \noindent\textbf{Срок предоставления к защите курсовой работы до} \underline{<<\qquad>>\qquad\quad\the\year{} г.}\\
-    \textbf{Задание на курсовую работу выдал} Фамилия И.О. \hfill\underline{\qquad\qquad}
-    \begin{flushright}
-        \underline{<<\qquad>>\qquad\qquad\the\year{} г.}
-    \end{flushright}
-    \noindent\textbf{Задание на курсовую работу получил} Фамилия И.О. \hfill\underline{\qquad\qquad} \\
+    \noindent\textbf{Срок предоставления к защите курсовой работы до} {\raggedright\datePlace} \par
+    \noindent\textbf{Задание на курсовую работу выдал} \uline{Фамилия И.О.} \hfill\signaturePlace \par
+    \hfill\datePlace \par
+    \noindent\textbf{Задание на курсовую работу получил} \uline{Фамилия И.О.} \hfill\signaturePlace \par\bigskip
     \begin{center}
-        \bigskip{}Москва -- \the\year{} г.
+        Москва -- \the\year{}~г.
     \end{center}
-    \thispagestyle{empty}
 \end{titlepage}
 \addtocounter{page}{2}
 
 \begin{abstract}
-    Этот документ имеет настройки, соответствующие главе 3 у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки Xe\LaTeX{} из дистрибутива TeX Live. Ссылки кликабельны.
+    Этот документ имеет настройки, соответствующие главе 3 у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В этом документ использованы только пакеты для форматирования (исключение --- graphicx) и библиографии. Новые пользовательские макрокоманды не объявлены. В родительской директории этого \verb".tex" файла должен лежать файл герба (черно-белый) \verb"MIREA_Gerb_Black.eps"~\cite{bib:symbol}. Настройки форматирования, библиографический список находятся в преамбуле (при удалении всего содержимого в окружении document настройки форматирования не изменятся).
+    В документе использованы только пакеты для форматирования, пакет biblatex для форматирования библиографии и graphix для иллюстраций. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба \verb"MIREA_Gerb_Black.eps"~\cite{bib:symbol} (возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого в окружении document настройки форматирования не изменятся).
     
     При использовании \url{overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
-    Замечания о расхождении с учебно-методическим пособием~\cite{bib:recomendations} писать в Issues репозитория~\cite{bib:githubrepo}.
+    Замечания о расхождении с учебно-методическим пособием~\cite{bib:recomendations} можно писать в Issues репозитория~\cite{bib:githubrepo} или \url{https://t.me/ValerianaOfficinalis}.
     
-    \subsection*{.tex в .docx}
+    \subsection*{!!!! .tex в .docx}
     
-    Раздел 1.1 СМКО МИРЭА 7.5.1/03.П.69-16 рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). .tex не может быть напрямую экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx. При этом форматирование документа не сохраняется, математические формулы экспортируются некорректно.
+    Раздел 1.1 \href{http://stavropol.mirea.ru/images/vipusk/rek.pdf}{СМКО МИРЭА 7.5.1/03.П.69-16} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). .tex не может быть напрямую экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, математические формулы экспортируются некорректно.
     
     \subsection*{Метаданные .pdf}
     
@@ -207,6 +210,10 @@
 \end{abstract}
 
 \tableofcontents
+
+\section*{Введение}
+\phantomsection
+\addcontentsline{toc}{section}{Введение}
 
 \section{Структура документа}
 
@@ -251,23 +258,37 @@
 \tableofcontents
 \end{verbatim}
 
+\subsection{Введение, раздел без нумерации}
+
+\noindent\verb"\section*{"Введение\verb"}"\\
+\verb"\phantomsection"\\
+\verb"\addcontentsline{toc}{section}{"Введение\verb"}"\\
+\verb"..."
+
 \subsection{Раздел}
 
 \begin{verbatim}
 \section{...}
+...
 \end{verbatim}
 
 \subsection{Подраздел}
 
 \begin{verbatim}
 \subsection{...}
+...
 \end{verbatim}
 
 \subsection{Пункт}
 
 \begin{verbatim}
 \subsubsection{...}
+...
 \end{verbatim}
+
+\subsubsection{Пример пункта}
+
+Текст пункта.
 
 \subsection{Список использованных источников}
 
@@ -275,7 +296,11 @@
 \printbibliography
 \end{verbatim}
 
-Данный документ создан на основе рекомендаций~\parencite{bib:recomendations}.
+Ссылка на источник~\cite{bib:recomendations}.
+
+Источники заполняются в преамбуле .tex файла.
+
+Сведения об источниках располагаются в порядке появления ссылок на источники автоматически. Источники, на которых ссылок нет, не добавляются в раздел <<СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ>>.
 
 \subsection{Приложение}
 
@@ -305,11 +330,12 @@
 
 За порядком приложений необходимо следить самостоятельно.
 
-\subsection{Списки и перечисления}
+\subsection{Список}
 
 \begin{verbatim}
 \begin{itemize}
-    \item ...
+    \item ...,
+    ...
 \end{itemize}
 \end{verbatim}
 
@@ -326,63 +352,69 @@
     \end{itemize}
 \end{itemize}
 
+\subsection{Перечисление}
+
 \begin{verbatim}
 \begin{enumerate}
-    \item ...
+    \item ...;
+    ...
 \end{enumerate} 
 \end{verbatim}
 
 \begin{enumerate}
-    \item первый уровень вложенности,
+    \item первый уровень вложенности;
     \begin{enumerate}
-        \item второй,
+        \item второй;
         \begin{enumerate}
-            \item третий,
+            \item третий;
             \begin{enumerate}
-                \item четвертый,
-                \item б,
-                \item в,
-                \item г,
-                \item д,
-                \item е,
-                \item ж,
-                \item и,
-                \item к,
-                \item л,
-                \item м,
-                \item н,
-                \item о,
-                \item п,
-                \item р,
-                \item с,
-                \item т,
-                \item у,
-                \item ф,
-                \item x,
-                \item ц,
-                \item ш,
-                \item э,
-                \item ю,
-                \item я, при наличии большего кол-ва элементов компилятор выдаст ошибку.
+                \item четвертый;
+                \item б;
+                \item в;
+                \item г;
+                \item д;
+                \item е;
+                \item ж;
+                \item и;
+                \item к;
+                \item л;
+                \item м;
+                \item н;
+                \item о;
+                \item п;
+                \item р;
+                \item с;
+                \item т;
+                \item у;
+                \item ф;
+                \item x;
+                \item ц;
+                \item ш;
+                \item э;
+                \item ю;
+                \item я, при наличии б\'ольшего кол-ва элементов компилятор выдаст ошибку.
             \end{enumerate}
         \end{enumerate}
     \end{enumerate}
 \end{enumerate}
 
 \subsection{Иллюстрация}
+ 
+Пакет graphicx подключен. См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}.
 
-\begin{figure}[htb!]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=.5\textwidth]{MIREA_Gerb_Black.eps}
+    \parskip=6pt
     \caption{Подпись ниже рисунка по центру}
     \label{fig:test_label}
 \end{figure}
- 
-Пакет graphix подключен. См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}. 
 
 Обратите внимание, что окружение figure является плавающим, и иллюстрация может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
 
 \subsection{Таблица}
+
+См. таблицу~\ref{tab:test_label} на стр.~\pageref{tab:test_label}.
 
 \begin{table}[htb]
     \caption{Подпись выше таблицы слева}
@@ -394,21 +426,19 @@
     \end{tabular}
     \label{tab:test_label}
 \end{table}
- 
-См. таблицу~\ref{tab:test_label} на стр.~\pageref{tab:test_label}.
 
-Обратите внимание, что окружение table является плавающим, и таблица может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
+Обратите внимание, что окружение table является плавающим, и таблица может появиться не там, где Вы ожидаете. Для размещения таблицы в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
 
 \subsection{Уравнение и формула}
 
+См. формулу~\ref{eq:test_label}.
+
 \begin{equation}\label{eq:test_label}
-    (\text{минус}\,a)\times b=c ,
+    \text{минус}\,a\times b=c ,
 \end{equation}
 где $a$ --- первая переменная; \\
 $b$ --- вторая переменная; \\
 $c$ --- третья переменная.
-
-См. формулу~\ref{eq:test_label}.
 
 \printbibliography
 
@@ -416,6 +446,8 @@ $c$ --- третья переменная.
 
 \section{Название первого приложения}
 \label{appendix:test_label}
+
+Текст приложения.
 
 \section{Название второго приложения}
 
