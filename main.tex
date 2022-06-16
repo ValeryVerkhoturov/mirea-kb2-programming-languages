@@ -1,4 +1,3 @@
-% Compiler: XeLaTeX
 \documentclass[14pt, a4paper, titlepage]{extarticle}
 
 \usepackage[english,main=russian]{babel}
@@ -113,18 +112,35 @@
     \clearpage
     \addcontentsline{toc}{section}{Список использованных источников}}{}{}
 
+% В библиографии нет отступов начиная со второй строки
+\defbibenvironment{bibliography}
+  {\list
+     {\printtext[labelnumberwidth]{%
+        \printfield{labelprefix}%
+        \printfield{labelnumber}}}
+     {\setlength{\labelwidth}{-\labelnumberwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \setlength{\leftmargin}{0pt}%
+      \setlength{\itemindent}{\bibhang}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{\hss##1}}
+  {\endlist}
+  {\item}
+
 \let\oldprintbibliography\printbibliography
 \renewcommand{\printbibliography}{\oldprintbibliography[title={Список использованных источников}]}
 
 % Перечисление использованных источников в biblatex
 % Подробнее https://www.ctan.org/pkg/biblatex-gost
 \begin{filecontents*}[overwrite]{biblio.bib}
-    @book{bib:recomendations,
+    @online{bib:recomendations,
       author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
       year = {2022},
-      title = {Методические рекомендации по выполнению курсовой работы по дисциплине <<Языки программирования>>},
-      publisher = {МИРЭА --- Российский технологический университет},
-      chapter=3
+      title = {Языки программирования [Электронный ресурс]: методические рекомендации по выполнению курсовой работы},
+      publisher = {РТУ МИРЭА},
+      url = {https://library.mirea.ru/share/4488},
+      urldate = {2022-06-16}
     }
     @online{bib:symbol,
       author = {РТУ~МИРЭА},
@@ -147,45 +163,50 @@
 
 \begin{titlepage}
     \pagestyle{empty}
-    \newcommand\signaturePlace{\uline{\hspace{3cm}}}
-    \newcommand\datePlace{\mbox{\uline{<<\qquad>>\hspace{2cm}\the\year{}~г.}}}
+    \setlength\parindent{0pt}
+    \newcommand\blankDate{\mbox{\uline{<<\qquad>>\hspace{2cm}\the\year{}~г.}}}
+    \newcommand\blankLine[2]{$\underset{\text{#1}}{\text{\uline{\hfil\penalty100\hfilneg#2}}}$}
     \begin{center}
-        \includegraphics[width=2.5cm]{MIREA_Gerb_Black.eps} \\
-        МИНОБРНАУКИ РОССИИ \\ 
-        Федеральное государственное бюджетное образовательное учреждение высшего образования \\
-        \textbf{<<МИРЭА --- Российский технологический университет>>} \\
-        \textbf{\fontsize{16pt}{16pt}\selectfont{}РТУ МИРЭА} \\
-        \uline{Институт кибербезопасности и цифровых технологий} \\
-        \uline{Кафедра КБ-2 <<Прикладные информационные технологии>>} \\
+        \includegraphics[width=2.5cm]{MIREA_Gerb_Black} \par
+        МИНОБРНАУКИ РОССИИ \par 
+        Федеральное государственное бюджетное образовательное учреждение высшего образования \par
+        \textbf{<<МИРЭА --- Российский технологический университет>>} \par
+        \textbf{\fontsize{16pt}{16pt}\selectfont РТУ МИРЭА} \par
+        \blankLine{(наименование института, филиала)}{Институт кибербезопасности и цифровых технологий} \par
+        \blankLine{(наименование кафедры)}{Кафедра КБ-2 <<Прикладные информационные технологии>>} \par
         \begin{flushright}
             \begin{minipage}{.5\textwidth}
+                \fontsize{12pt}{12pt}\selectfont
+                \setlength{\parskip}{0pt}
                 \centering
-                Утверждаю \\
-                Заведующий кафедрой КБ-2 \\
-                Фамилия~И.О. \signaturePlace \\
-                \datePlace
+                Утверждаю \par
+                Заведующий кафедрой КБ-2 \par
+                \blankLine{(Ф.И.О.)}{Фамилия~И.О.}~\blankLine{(подпись)}{\hspace{2cm}} \par
+                \blankDate
             \end{minipage}
         \end{flushright}
         {\fontsize{16pt}{16pt}\selectfont
-        \textbf{КУРСОВАЯ РАБОТА}} \\
-        по дисциплине \uline{Языки программирования}
+        \textbf{КУРСОВАЯ РАБОТА}} \par
+        по дисциплине \blankLine{(наименование дисциплины)}{Языки программирования}
     \end{center}
-    \textbf{Тема курсовой работы \uline{<<Разработка файловой базы данных студентов на основе принципов ООП>>}} \bigskip\\
-    Студент группы \uline{БСБО-05-20 Верхотуров Валерий Сергеевич} \hfill\signaturePlace \bigskip\\
-    Руководитель курсового проекта (работы) \uline{\hspace{4cm}} \hfill\signaturePlace \bigskip\\
-    Рецензент (при наличии) \uline{\hspace{7.7cm}} \hfill\signaturePlace \bigskip\\
-    Работа предоставлена к защите \hfill\datePlace \bigskip\\
-    Допущен к защите \hfill\datePlace \\
+    \textbf{Тема курсовой работы \uline{\hspace{11cm}}} \bigskip\par
+    Студент группы \blankLine{учебная группа, фамилия, имя, отчество студента}{БСБО-05-20 Верхотуров Валерий Сергеевич} \hfill\blankLine{подпись студента}{\hspace{3cm}} \bigskip\par
+    Руководитель курсовой работы \blankLine{должность, звание, учёная степень}{\hspace{6cm}} \hfill\blankLine{подпись руководителя}{\hspace{3cm}} \bigskip\par
+    Рецензент (при наличии) \blankLine{должность, звание, учёная степень}{\hspace{7cm}} \hfill\blankLine{подпись рецензента}{\hspace{3cm}} \bigskip\par
+    \begin{tabular}{@{}ll}
+        Работа предоставлена к защите & \blankDate \bigskip\\
+        Допущен к защите & \blankDate
+    \end{tabular}
     \begin{center}
-        \vfill{}Москва -- \the\year{}~г.
+        \vfill Москва~---~\the\year{}~г.
     \end{center}
     \newpage
-    \noindent\textbf{Срок предоставления к защите курсовой работы до} {\raggedright\datePlace} \par
-    \noindent\textbf{Задание на курсовую работу выдал} \uline{Фамилия И.О.} \hfill\signaturePlace \par
-    \hfill\datePlace \par
-    \noindent\textbf{Задание на курсовую работу получил} \uline{Фамилия И.О.} \hfill\signaturePlace \par\bigskip
+    \textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate \par
+    \textbf{Задание на курсовую работу выдал} \blankLine{(Ф.И.О. руководителя)}{\hspace{4cm}} \hfill\blankLine{(подпись руководителя)}{\hspace{3cm}} \par
+    \hfill\blankDate \par
+    \textbf{Задание на курсовую работу получил} \blankLine{(Ф.И.О. исполнителя)}{\hspace{3cm}} \hfill\blankLine{(подпись исполнителя)}{\hspace{3cm}} \par\bigskip
     \begin{center}
-        Москва -- \the\year{}~г.
+        Москва~---~\the\year{}~г.
     \end{center}
 \end{titlepage}
 \addtocounter{page}{2}
@@ -193,15 +214,15 @@
 \begin{abstract}
     Этот документ имеет настройки, соответствующие главе 3 у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В документе использованы только пакеты для форматирования, пакет biblatex для форматирования библиографии и graphix для иллюстраций. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба \verb"MIREA_Gerb_Black.eps"~\cite{bib:symbol} (возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого в окружении document настройки форматирования не изменятся).
+    В документе использованы только пакеты для форматирования, пакет biblatex для форматирования библиографии и graphix для иллюстраций. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл --- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
     
     При использовании \url{overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
-    Замечания о расхождении с учебно-методическим пособием~\cite{bib:recomendations} можно писать в Issues репозитория~\cite{bib:githubrepo} или \url{https://t.me/ValerianaOfficinalis}.
+    Замечания о расхождении с методическими рекомендациями~\cite{bib:recomendations} можно писать в Issues Github репозитория~\cite{bib:githubrepo}, задать вопрос в Telegram \url{https://t.me/ValerianaOfficinalis}.
     
-    \subsection*{!!!! .tex в .docx}
+    \subsection*{.tex в .docx}
     
-    Раздел 1.1 \href{http://stavropol.mirea.ru/images/vipusk/rek.pdf}{СМКО МИРЭА 7.5.1/03.П.69-16} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). .tex не может быть напрямую экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, математические формулы экспортируются некорректно.
+    Раздел 1.1 \href{http://stavropol.mirea.ru/images/vipusk/rek.pdf}{СМКО МИРЭА 7.5.1/03.П.69-16} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
     
     \subsection*{Метаданные .pdf}
     
@@ -215,9 +236,11 @@
 \phantomsection
 \addcontentsline{toc}{section}{Введение}
 
+Содержание введения.
+
 \section{Структура документа}
 
-Структура документа совместима со стандартным классом документа \LaTeX{} article.
+Структура документа совместима со стандартным классом документа article.
 
 \subsection{Титульная страница}
 
@@ -296,15 +319,21 @@
 \printbibliography
 \end{verbatim}
 
-Ссылка на источник~\cite{bib:recomendations}.
+Ссылка на источник:
 
-Источники заполняются в преамбуле .tex файла.
+\begin{verbatim}
+\cite{...}
+\end{verbatim}
 
-Сведения об источниках располагаются в порядке появления ссылок на источники автоматически. Источники, на которых ссылок нет, не добавляются в раздел <<СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ>>.
+Пример ссылки на источник~\cite{bib:recomendations}.
+
+В шаблоне источники заполняются в преамбуле.
+
+Сведения об источниках располагаются в порядке появления ссылок на источники автоматически. Источники, на которых ссылок нет, не добавляются в раздел \uppercase{<<Список использованных источников>>}.
 
 \subsection{Приложение}
 
-Как и в стандартных классах перед приложениями необходимо указать команду \verb"\appendix{}".
+Как и в стандартных классах перед приложениями необходимо указать команду \verb"\appendix".
 
 Пример с одним приложением:
 
@@ -326,7 +355,13 @@
 ...
 \end{verbatim}
 
-Ссылка на приложение~\ref{appendix:test_label}.
+Ссылка на приложение
+
+\begin{verbatim}
+\ref{...}
+\end{verbatim}
+
+Пример ссылки на приложение~\ref{appendix:test_label}.
 
 За порядком приложений необходимо следить самостоятельно.
 
@@ -340,6 +375,7 @@
 \end{verbatim}
 
 \begin{itemize}
+    \item[] Пример списка:
     \item первый уровень вложенности,
     \begin{itemize}
         \item второй,
@@ -362,6 +398,7 @@
 \end{verbatim}
 
 \begin{enumerate}
+    \item[] Пример перечисления:
     \item первый уровень вложенности;
     \begin{enumerate}
         \item второй;
@@ -404,13 +441,13 @@
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=.5\textwidth]{MIREA_Gerb_Black.eps}
+    \includegraphics[width=.5\textwidth]{MIREA_Gerb_Black}
     \parskip=6pt
     \caption{Подпись ниже рисунка по центру}
     \label{fig:test_label}
 \end{figure}
 
-Обратите внимание, что окружение figure является плавающим, и иллюстрация может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
+Обратите внимание, что окружение figure является \emph{плавающим}, и иллюстрация может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
 
 \subsection{Таблица}
 
@@ -427,7 +464,7 @@
     \label{tab:test_label}
 \end{table}
 
-Обратите внимание, что окружение table является плавающим, и таблица может появиться не там, где Вы ожидаете. Для размещения таблицы в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
+Обратите внимание, что окружение table является \emph{плавающим}, и таблица может появиться не там, где Вы ожидаете. Для размещения таблицы в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
 
 \subsection{Уравнение и формула}
 
@@ -447,8 +484,10 @@ $c$ --- третья переменная.
 \section{Название первого приложения}
 \label{appendix:test_label}
 
-Текст приложения.
+Содержание первого приложения.
 
 \section{Название второго приложения}
+
+Содержание второго приложения.
 
 \end{document}
