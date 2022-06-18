@@ -111,22 +111,24 @@
 \pretocmd{\printbibliography}{
     \clearpage
     \addcontentsline{toc}{section}{Список использованных источников}}{}{}
+    
+\DeclareFieldFormat{url}{Режим доступа\addcolon\space\url{#1}} % изменение отображения url атрибута
 
 % В библиографии нет отступов начиная со второй строки
 \defbibenvironment{bibliography}
-  {\list
-     {\printtext[labelnumberwidth]{%
-        \printfield{labelprefix}%
-        \printfield{labelnumber}}}
-     {\setlength{\labelwidth}{-\labelnumberwidth}%
-      \setlength{\labelsep}{\biblabelsep}%
-      \setlength{\leftmargin}{0pt}%
-      \setlength{\itemindent}{\bibhang}%
-      \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}%
-      \renewcommand*{\makelabel}[1]{\hss##1}}
-  {\endlist}
-  {\item}
+    {\list
+        {\printtext[labelnumberwidth]{
+            \printfield{labelprefix}
+            \printfield{labelnumber}}}
+        {\setlength{\labelwidth}{-\labelnumberwidth}
+            \setlength{\labelsep}{\biblabelsep}
+            \setlength{\leftmargin}{0pt}
+            \setlength{\itemindent}{\bibhang}
+            \setlength{\itemsep}{\bibitemsep}
+            \setlength{\parsep}{\bibparsep}}
+            \renewcommand*{\makelabel}[1]{\hss##1}}
+    {\endlist}
+    {\item}
 
 \let\oldprintbibliography\printbibliography
 \renewcommand{\printbibliography}{\oldprintbibliography[title={Список использованных источников}]}
@@ -134,27 +136,29 @@
 % Перечисление использованных источников в biblatex
 % Подробнее https://www.ctan.org/pkg/biblatex-gost
 \begin{filecontents*}[overwrite]{biblio.bib}
-    @online{bib:recomendations,
-      author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
-      year = {2022},
-      title = {Языки программирования [Электронный ресурс]: методические рекомендации по выполнению курсовой работы},
-      publisher = {РТУ МИРЭА},
-      url = {https://library.mirea.ru/share/4488},
-      urldate = {2022-06-16}
+    @inbook{bib:recomendations,
+        author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
+        year = 2022,
+        title = {Языки программирования [Электронный ресурс]: методические рекомендации по выполнению курсовой работы},
+        chapter = 3,
+        pages = 73,
+        publisher = {РТУ МИРЭА},
+        url = {https://library.mirea.ru/share/4488},
+        urldate = {2022-06-16}
     }
     @online{bib:symbol,
-      author = {РТУ~МИРЭА},
-      title = {Символика Университета},
-      year = 2022,
-      url = {https://www.mirea.ru/mediapage/the-symbolism-of-the-university/},
-      urldate = {2022-05-31}
+        title = {Сайт РТУ~МИРЭА [Электронный ресурс]: Символика Унивеситета},
+        publisher = {РТУ~МИРЭА},
+        year = 2022,
+        url = {https://www.mirea.ru/mediapage/the-symbolism-of-the-university/},
+        urldate = {2022-05-31}
     }
     @online{bib:githubrepo,
-      author = {Верхотуров, В. С.},
-      title = {LaTeX шаблон для курсовой работы по дисциплине <<Языки программирования>> РТУ МИРЭА},
-      year = 2022,
-      url = {https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages},
-      urldate = {2022-05-29}
+        author = {Верхотуров, В. С.},
+        title = {Реализация требований по оформлению работ из учебно-методического пособия [Электронный ресурс]},
+        year = 2022,
+        url = {https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages},
+        urldate = {2022-05-29}
     }
 \end{filecontents*}
 \addbibresource{biblio.bib}
@@ -164,8 +168,8 @@
 \begin{titlepage}
     \pagestyle{empty}
     \setlength\parindent{0pt}
-    \newcommand\blankDate{\mbox{\uline{<<\qquad>>\hspace{2cm}\the\year{}~г.}}}
-    \newcommand\blankLine[2]{$\underset{\text{#1}}{\text{\uline{\hfil\penalty100\hfilneg#2}}}$}
+    \newcommand{\blankDate}[2]{\mbox{\uline{<<\makebox[.7cm]{#1}>>~\makebox[2cm]{#2}~\the\year{}~г.}}} % {день}{месяц}
+    \newcommand\blankLine[2]{$\underset{\text{#1}}{\text{\uline{#2}}}$}
     \begin{center}
         \includegraphics[width=2.5cm]{MIREA_Gerb_Black} \par
         МИНОБРНАУКИ РОССИИ \par 
@@ -182,7 +186,7 @@
                 Утверждаю \par
                 Заведующий кафедрой КБ-2 \par
                 \blankLine{(Ф.И.О.)}{Фамилия~И.О.}~\blankLine{(подпись)}{\hspace{2cm}} \par
-                \blankDate
+                \blankDate{}{}
             \end{minipage}
         \end{flushright}
         {\fontsize{16pt}{16pt}\selectfont
@@ -194,16 +198,16 @@
     Руководитель курсовой работы \blankLine{должность, звание, учёная степень}{\hspace{6cm}} \hfill\blankLine{подпись руководителя}{\hspace{3cm}} \bigskip\par
     Рецензент (при наличии) \blankLine{должность, звание, учёная степень}{\hspace{7cm}} \hfill\blankLine{подпись рецензента}{\hspace{3cm}} \bigskip\par
     \begin{tabular}{@{}ll}
-        Работа предоставлена к защите & \blankDate \bigskip\\
-        Допущен к защите & \blankDate
+        Работа предоставлена к защите & \blankDate{}{} \bigskip\\
+        Допущен к защите & \blankDate{}{}
     \end{tabular}
     \begin{center}
         \vfill Москва~---~\the\year{}~г.
     \end{center}
     \newpage
-    \textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate \par
+    \textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate{}{} \par
     \textbf{Задание на курсовую работу выдал} \blankLine{(Ф.И.О. руководителя)}{\hspace{4cm}} \hfill\blankLine{(подпись руководителя)}{\hspace{3cm}} \par
-    \hfill\blankDate \par
+    \hfill\blankDate{}{} \par
     \textbf{Задание на курсовую работу получил} \blankLine{(Ф.И.О. исполнителя)}{\hspace{3cm}} \hfill\blankLine{(подпись исполнителя)}{\hspace{3cm}} \par\bigskip
     \begin{center}
         Москва~---~\the\year{}~г.
@@ -212,13 +216,13 @@
 \addtocounter{page}{2}
 
 \begin{abstract}
-    Этот документ имеет настройки, соответствующие главе 3 у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
+    Этот документ имеет настройки, соответствующие разделу <<ТРЕБОВАНИЯ ПО ОФОРМЛЕНИЮ РАБОТЫ>> у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В документе использованы только пакеты для форматирования, пакет biblatex для форматирования библиографии и graphix для иллюстраций. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл --- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
+    В документе использованы только пакеты для форматирования документа, пакет biblatex для форматирования библиографии и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл --- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
     
     При использовании \url{overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
-    Замечания о расхождении с методическими рекомендациями~\cite{bib:recomendations} можно писать в Issues Github репозитория~\cite{bib:githubrepo}, задать вопрос в Telegram \url{https://t.me/ValerianaOfficinalis}.
+    Замечания о расхождении с разделом методических рекомендаций~\cite{bib:recomendations} можно писать в Issues GitHub репозитория~\cite{bib:githubrepo}, задать вопрос в Telegram \url{https://t.me/ValerianaOfficinalis}.
     
     \subsection*{.tex в .docx}
     
@@ -236,7 +240,7 @@
 \phantomsection
 \addcontentsline{toc}{section}{Введение}
 
-Содержание введения.
+Текст введения.
 
 \section{Структура документа}
 
@@ -247,14 +251,12 @@
 Рекомендуется использовать выданные преподавателем титульные страницы (например, с помощью пакета pdfpages).
     
 При использованих своих титульных страниц необходимо удалить окружение titlepage:
-
 \begin{verbatim}
 \begin{titlepage}
 ...
 \end{titlepage}
 \end{verbatim}
 класс документа поменять на
-
 \begin{verbatim}
 \documentclass[14pt, a4paper]{extarticle} 
 \end{verbatim}
@@ -320,7 +322,6 @@
 \end{verbatim}
 
 Ссылка на источник:
-
 \begin{verbatim}
 \cite{...}
 \end{verbatim}
@@ -336,7 +337,6 @@
 Как и в стандартных классах перед приложениями необходимо указать команду \verb"\appendix".
 
 Пример с одним приложением:
-
 \begin{verbatim}
 \appendix
 \section{...}
@@ -344,7 +344,6 @@
 \end{verbatim}
 
 Пример с тремя приложениями:
-
 \begin{verbatim}
 \appendix
 \section{...}
@@ -355,8 +354,7 @@
 ...
 \end{verbatim}
 
-Ссылка на приложение
-
+Ссылка на приложение:
 \begin{verbatim}
 \ref{...}
 \end{verbatim}
@@ -481,12 +479,26 @@ $c$ --- третья переменная.
 
 \appendix
 
-\section{Название первого приложения}
-\label{appendix:test_label}
+\section{Использованные пакеты}
+\label{appendix:used_packages}
 
-Содержание первого приложения.
+\begin{itemize}
+    \item babel,
+    \item caption,
+    \item csquotes,
+    \item fontspec,
+    \item geometry,
+    \item graphicx,
+    \item hyperref,
+    \item indentfirst,
+    \item newtxmath,
+    \item titlesec,
+    \item tocloft,
+    \item ulem.
+\end{itemize}
 
 \section{Название второго приложения}
+\label{appendix:test_label}
 
 Содержание второго приложения.
 
