@@ -2,7 +2,7 @@
 
 \usepackage[english,main=russian]{babel}
 \usepackage{fontspec}
-\setmainfont{Times New Roman} % Если возникают проблемы при компиляции с данной строкой, необходимо установить необходимый 
+\setmainfont{Times New Roman} % Если возникают проблемы при компиляции с данной строкой, необходимо на компьютер установить  Times New Roman 
 \usepackage{newtxmath} % Поменять гарнитуру в фомулах на Times New Roman
 
 \usepackage[left=30mm, right=15mm, top=20mm, bottom=20mm]{geometry}
@@ -34,11 +34,13 @@
 
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Добавить точки у разделов в оглавлении
 
+\usepackage{placeins} % Команда \FloatBarrier для размещения плавающего окружения в пределах раздела, подраздела, пункта
+
 % Настройка раздела, подраздела, подподраздела
 \usepackage{titlesec}
-\titleformat{\section}{\parskip=6pt\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.5em}{}
-\titleformat{\subsection}{\filcenter\bfseries}{\thesubsection}{.5em}{}
-\titleformat{\subsubsection}{\filcenter\bfseries}{\thesubsubsection}{.5em}{}
+\titleformat{\section}{\FloatBarrier\parskip=6pt\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.5em}{}
+\titleformat{\subsection}{\FloatBarrier\filcenter\bfseries}{\thesubsection}{.5em}{}
+\titleformat{\subsubsection}{\FloatBarrier\filcenter\bfseries}{\thesubsubsection}{.5em}{}
 
 \AddToHook{cmd/section/before}{\clearpage} % Начинать раздел с новой страницы
 
@@ -78,12 +80,18 @@
 \apptocmd{\appendix}{
     \renewcommand{\thesection}{\Asbuk{section}}
     \titleformat{\section}{\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries}{}{0pt}{\MakeUppercase{\appendixname}~\thesection \\}{}{} % Изменение формата раздела приложения
+    \renewcommand\thefigure{\Asbuk{section}.\arabic{figure}} % Изменении формата нумерации иллюстрации
+    \renewcommand\thetable{\Asbuk{section}.\arabic{table}} % Изменении формата нумерации таблицы
+    \renewcommand\theequation{\Asbuk{section}.\arabic{equation}} % Изменении формата нумерации формулы
     
     \let\oldsec\section
     \renewcommand{\section}{
         \clearpage
         \phantomsection
         \refstepcounter{section}
+        \setcounter{figure}{0} % Счёт иллюстраций в пределах иллюстрации
+        \setcounter{table}{0} % Счёт таблиц в пределах таблицы
+        \setcounter{equation}{0} % Счёт иллюстраций в пределах иллюстрации
         \addcontentsline{toc}{section}{\appendixname~\thesection}
         \oldsec*} % Нумерация раздела после названия
 }
@@ -218,9 +226,9 @@
 \begin{abstract}
     Этот документ имеет настройки, соответствующие разделу <<ТРЕБОВАНИЯ ПО ОФОРМЛЕНИЮ РАБОТЫ>> у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В документе использованы только пакеты для форматирования документа, пакет biblatex для форматирования библиографии и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл --- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
+    В документе использованы пакеты для форматирования документа, пакет biblatex для форматирования библиографии и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
     
-    При использовании \url{overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
+    При использовании \url{https://overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
     Замечания о расхождении с разделом методических рекомендаций~\cite{bib:recomendations} можно писать в Issues GitHub репозитория~\cite{bib:githubrepo}, задать вопрос в Telegram \url{https://t.me/ValerianaOfficinalis}.
     
@@ -297,6 +305,8 @@
 ...
 \end{verbatim}
 
+Перед началом раздела в документ включаются все объявленные, но не отображённые плавающие окружения.
+
 \subsection{Подраздел}
 
 \begin{verbatim}
@@ -304,12 +314,16 @@
 ...
 \end{verbatim}
 
+ Перед началом подраздела в документ включаются все объявленные, но не отображённые плавающие окружения.
+
 \subsection{Пункт}
 
 \begin{verbatim}
 \subsubsection{...}
 ...
 \end{verbatim}
+
+ Перед началом пункта в документ включаются все объявленные, но не отображённые плавающие окружения.
 
 \subsubsection{Пример пункта}
 
@@ -359,7 +373,7 @@
 \ref{...}
 \end{verbatim}
 
-Пример ссылки на приложение~\ref{appendix:test_label}.
+Пример ссылки на приложение~\ref{appendix:fig_tab_eq_numeration}.
 
 За порядком приложений необходимо следить самостоятельно.
 
@@ -388,54 +402,89 @@
 
 \subsection{Перечисление}
 
+\subsubsection{Простое перечисление}
+
 \begin{verbatim}
 \begin{enumerate}
-    \item ...;
+    \item ...,
     ...
 \end{enumerate} 
 \end{verbatim}
 
 \begin{enumerate}
-    \item[] Пример перечисления:
-    \item первый уровень вложенности;
+    \item[] Пример простого перечисления:
+    \item первый уровень вложенности,
     \begin{enumerate}
-        \item второй;
+        \item второй,
         \begin{enumerate}
-            \item третий;
+            \item третий,
             \begin{enumerate}
-                \item четвертый;
-                \item б;
-                \item в;
-                \item г;
-                \item д;
-                \item е;
-                \item ж;
-                \item и;
-                \item к;
-                \item л;
-                \item м;
-                \item н;
-                \item о;
-                \item п;
-                \item р;
-                \item с;
-                \item т;
-                \item у;
-                \item ф;
-                \item x;
-                \item ц;
-                \item ш;
-                \item э;
-                \item ю;
+                \item четвертый,
+                \item б,
+                \item в,
+                \item г,
+                \item д,
+                \item е,
+                \item ж,
+                \item и,
+                \item к,
+                \item л,
+                \item м,
+                \item н,
+                \item о,
+                \item п,
+                \item р,
+                \item с,
+                \item т,
+                \item у,
+                \item ф,
+                \item x,
+                \item ц,
+                \item ш,
+                \item э,
+                \item ю,
                 \item я, при наличии б\'ольшего кол-ва элементов компилятор выдаст ошибку.
             \end{enumerate}
         \end{enumerate}
     \end{enumerate}
 \end{enumerate}
 
+\subsubsection{Сложное перечисление}
+
+\begin{verbatim}
+\begin{enumerate}
+    \item[--] ...:
+    \item ...;
+    ...
+\end{enumerate} 
+\end{verbatim}
+
+\begin{enumerate}
+    \item[] Пример сложного перечисления:
+    \item[] Разрабатываемое сверхмощное устройство можно будет применять в различных отраслях реального сектора экономики:
+    \item[--] в машиностроении:
+    \item для очистки отливок от формовочной смеси;
+    \item для очистки лопаток турбин авиационных двигателей;
+    \item для холодной штамповки из листа;
+    \item[--] в ремонте техники:
+    \item устранение наслоений на внутренних стенках труб;
+    \item очистка каналов и отверстий небольшого диаметра от грязи.
+\end{enumerate}
+
 \subsection{Иллюстрация}
  
-Пакет graphicx подключен. См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}.
+Пакет graphicx подключён. См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}, рисунок~\ref{fig:in_appendix} в приложении.
+
+
+\begin{verbatim}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.9\textwidth]{...}
+    \parskip=6pt
+    \caption{...}
+    \label{...}
+\end{figure}
+\end{verbatim}
 
 \begin{figure}[htb]
     \centering
@@ -449,15 +498,28 @@
 
 \subsection{Таблица}
 
-См. таблицу~\ref{tab:test_label} на стр.~\pageref{tab:test_label}.
+См. таблицу~\ref{tab:test_label} на стр.~\pageref{tab:test_label}, таблицу~\ref{tab:in_appendix} в приложении.
+
+\begin{verbatim}
+\begin{table}[htb]
+    \caption{...}
+    \centering
+    \begin{tabular}{|c|c|} 
+        \hline
+        1 & 2 \\ \hline
+        3 & 4 \\ \hline
+    \end{tabular}
+    \label{...}
+\end{table}
+\end{verbatim}
 
 \begin{table}[htb]
-    \caption{Подпись выше таблицы слева}
+    \caption{Подпись над таблицей слева без абзацного отступа}
     \centering
     \begin{tabular}{ |c|c|c|c|c| } 
         \hline
-        ячейка 1 & ячейка 2 & ячейка 3 & ячейка 4 & ячейка 5 \\ \hline
-        ячейка 6 & ячейка 7 & ячейка 8 & ячейка 9 & ячейка 10 \\ \hline
+        Ячейка 1 & Ячейка 2 & Ячейка 3 & Ячейка 4 & Ячейка 5 \\ \hline
+        Ячейка 6 & Ячейка 7 & Ячейка 8 & Ячейка 9 & Ячейка 10 \\ \hline
     \end{tabular}
     \label{tab:test_label}
 \end{table}
@@ -466,14 +528,14 @@
 
 \subsection{Уравнение и формула}
 
-См. формулу~\ref{eq:test_label}.
+См. формулу~\ref{eq:test_label} в подразделе, формулу~\ref{eq:in_appendix} в приложении.
 
 \begin{equation}\label{eq:test_label}
     \text{минус}\,a\times b=c ,
 \end{equation}
-где $a$ --- первая переменная; \\
-$b$ --- вторая переменная; \\
-$c$ --- третья переменная.
+где $a$~--- первая переменная; \\
+$b$~--- вторая переменная; \\
+$c$~--- третья переменная.
 
 \printbibliography
 
@@ -484,6 +546,7 @@ $c$ --- третья переменная.
 
 \begin{itemize}
     \item babel,
+    \item biblatex,
     \item caption,
     \item csquotes,
     \item fontspec,
@@ -492,14 +555,40 @@ $c$ --- третья переменная.
     \item hyperref,
     \item indentfirst,
     \item newtxmath,
+    \item placeins,
     \item titlesec,
     \item tocloft,
     \item ulem.
 \end{itemize}
 
-\section{Название второго приложения}
-\label{appendix:test_label}
+\section{Нумерация иллюстраций и таблиц в приложении}
+\label{appendix:fig_tab_eq_numeration}
 
-Содержание второго приложения.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.5\textwidth]{MIREA_Gerb_Black}
+    \parskip=6pt
+    \caption{Иллюстрация в приложении}
+    \label{fig:in_appendix}
+\end{figure}
+
+\begin{table}[htb]
+    \caption{Таблица в приложении}
+    \centering
+    \begin{tabular}{ |c|c|c|c|c| } 
+        \hline
+        Ячейка 1 & Ячейка 2 & Ячейка 3 & Ячейка 4 & Ячейка 5 \\ \hline
+        Ячейка 6 & Ячейка 7 & Ячейка 8 & Ячейка 9 & Ячейка 10 \\ \hline
+    \end{tabular}
+    \label{tab:in_appendix}
+\end{table}
+
+\begin{equation}\label{eq:in_appendix}
+    \text{минус}\,a\times b=c ,
+\end{equation}
+где $a$~--- первая переменная; \\
+$b$~--- вторая переменная; \\
+$c$~--- третья переменная.
+
 
 \end{document}
