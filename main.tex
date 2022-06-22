@@ -89,9 +89,9 @@
         \clearpage
         \phantomsection
         \refstepcounter{section}
-        \setcounter{figure}{0} % Счёт иллюстраций в пределах иллюстрации
-        \setcounter{table}{0} % Счёт таблиц в пределах таблицы
-        \setcounter{equation}{0} % Счёт иллюстраций в пределах иллюстрации
+        \setcounter{figure}{0} % Счёт иллюстраций в пределах одного приложения
+        \setcounter{table}{0} % Счёт таблиц в пределах одного приложения
+        \setcounter{equation}{0} % Счёт иллюстраций в пределах одного приложения
         \addcontentsline{toc}{section}{\appendixname~\thesection}
         \oldsec*} % Нумерация раздела после названия
 }
@@ -107,69 +107,14 @@
 % Метаданные .pdf документа, отключение подсветки ссылок
 \hypersetup{pdftitle={Языки программирования}, pdfauthor={В. С. Верхотуров}, colorlinks=false, pdfborder={0 0 0}}
 
-\usepackage{csquotes} % используется biblatex
-\usepackage[
-    backend=biber,
-    bibstyle=gost-numeric,
-    language=auto,
-    autolang=other,
-    sorting=none,
-]{biblatex}
+% Настройка заголовка списка использованных источников
+\addto\captionsrussian{\renewcommand{\refname}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}}
 
-\pretocmd{\printbibliography}{
-    \clearpage
-    \addcontentsline{toc}{section}{Список использованных источников}}{}{}
-    
-\DeclareFieldFormat{url}{Режим доступа\addcolon\space\url{#1}} % изменение отображения url атрибута
+\BeforeBeginEnvironment{thebibliography}{
+\clearpage\phantomsection
+}
 
-% В библиографии нет отступов начиная со второй строки
-\defbibenvironment{bibliography}
-    {\list
-        {\printtext[labelnumberwidth]{
-            \printfield{labelprefix}
-            \printfield{labelnumber}}}
-        {\setlength{\labelwidth}{-\labelnumberwidth}
-            \setlength{\labelsep}{\biblabelsep}
-            \setlength{\leftmargin}{0pt}
-            \setlength{\itemindent}{\bibhang}
-            \setlength{\itemsep}{\bibitemsep}
-            \setlength{\parsep}{\bibparsep}}
-            \renewcommand*{\makelabel}[1]{\hss##1}}
-    {\endlist}
-    {\item}
-
-\let\oldprintbibliography\printbibliography
-\renewcommand{\printbibliography}{\oldprintbibliography[title={Список использованных источников}]}
-
-% Перечисление использованных источников в biblatex
-% Подробнее https://www.ctan.org/pkg/biblatex-gost
-\begin{filecontents*}[overwrite]{biblio.bib}
-    @inbook{bib:recomendations,
-        author = {Мерсов, А. А. and Русаков, А. М. and Филатов, В. В.},
-        year = 2022,
-        title = {Языки программирования [Электронный ресурс]: методические рекомендации по выполнению курсовой работы},
-        chapter = 3,
-        pages = 73,
-        publisher = {РТУ МИРЭА},
-        url = {https://library.mirea.ru/share/4488},
-        urldate = {2022-06-16}
-    }
-    @online{bib:symbol,
-        title = {Сайт РТУ~МИРЭА [Электронный ресурс]: Символика Унивеситета},
-        publisher = {РТУ~МИРЭА},
-        year = 2022,
-        url = {https://www.mirea.ru/mediapage/the-symbolism-of-the-university/},
-        urldate = {2022-05-31}
-    }
-    @online{bib:githubrepo,
-        author = {Верхотуров, В. С.},
-        title = {Реализация требований по оформлению работ из учебно-методического пособия [Электронный ресурс]},
-        year = 2022,
-        url = {https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages},
-        urldate = {2022-05-29}
-    }
-\end{filecontents*}
-\addbibresource{biblio.bib}
+\setlength{\bibindent}{-1.25cm} % Убрать отступы у элементов списка использованных источников + \{thebibliography}{99\kern\bibindent}
 
 \begin{document}
 
@@ -224,21 +169,21 @@
 \addtocounter{page}{2}
 
 \begin{abstract}
-    Этот документ имеет настройки, соответствующие разделу <<ТРЕБОВАНИЯ ПО ОФОРМЛЕНИЮ РАБОТЫ>> у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
+    Этот документ имеет настройки, соответствующие разделу <<ТРЕБОВАНИЯ ПО ОФОРМЛЕНИЮ РАБОТЫ>> у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite[раздел~3]{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В документе использованы пакеты для форматирования документа, пакет biblatex для форматирования библиографии и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, по причине \href{https://www.cve.org/CVERecord?id=CVE-2013-4979}{CVE-2013-4979} также возможно использование .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
+    В документе используются пакеты для форматирования документа и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
     
     При использовании \url{https://overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
-    Замечания о расхождении с разделом методических рекомендаций~\cite{bib:recomendations} можно писать в Issues GitHub репозитория~\cite{bib:githubrepo}, задать вопрос в Telegram \url{https://t.me/ValerianaOfficinalis}.
+    Замечания о расхождении с~\cite[раздел~3]{bib:recomendations} можно писать в~\cite[Issues]{bib:githubrepo}, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
     
     \subsection*{.tex в .docx}
     
-    Раздел 1.1 \href{http://stavropol.mirea.ru/images/vipusk/rek.pdf}{СМКО МИРЭА 7.5.1/03.П.69-16} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
+    СМКО МИРЭА~\cite[подраздел~1.1]{bib:smko} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
     
     \subsection*{Метаданные .pdf}
     
-    Не забудьте в преамбуле в команде \verb"\hypersetup" поменять значение полей \verb"pdftitle={"Название моего документа\verb"}", \verb"pdfauthor={"Мое имя\verb"}".
+    Не забудьте в преамбуле в команде \verb"\hypersetup" поменять значение полей \verb"pdftitle={"Название моего документа\verb"}", \verb"pdfauthor={"Моё имя\verb"}".
     
 \end{abstract}
 
@@ -270,6 +215,7 @@
 \end{verbatim}
 
 К основному тексту после титульных листов необходимо добавить кол-во вставленных страниц. Пример:
+
 \begin{verbatim}
 \begin{titlepage}
 ...
@@ -332,7 +278,10 @@
 \subsection{Список использованных источников}
 
 \begin{verbatim}
-\printbibliography
+\begin{thebibliography}{99\kern\bibindent}
+    \bibitem{...} ...
+    ...
+\end{thebibliography}
 \end{verbatim}
 
 Ссылка на источник:
@@ -342,9 +291,8 @@
 
 Пример ссылки на источник~\cite{bib:recomendations}.
 
-В шаблоне источники заполняются в преамбуле.
+За наличием ссылок и порядком элементов списка необходимо следить самостоятельно, либо использовать biblatex.
 
-Сведения об источниках располагаются в порядке появления ссылок на источники автоматически. Источники, на которых ссылок нет, не добавляются в раздел \uppercase{<<Список использованных источников>>}.
 
 \subsection{Приложение}
 
@@ -387,12 +335,18 @@
 \end{verbatim}
 
 \begin{itemize}
-    \item[] Пример списка:
-    \item первый уровень вложенности,
+    \item[] Пример простого списка:
+    \item первый элемент,
+    \item второй элемент.
+\end{itemize}
+
+\begin{itemize}
+    \item[] Пример сложного списка:
+    \item первый уровень вложенности;
     \begin{itemize}
-        \item второй,
+        \item второй;
         \begin{itemize}
-            \item третий,
+            \item третий;
             \begin{itemize}
                 \item четвертый.
             \end{itemize}
@@ -401,8 +355,6 @@
 \end{itemize}
 
 \subsection{Перечисление}
-
-\subsubsection{Простое перечисление}
 
 \begin{verbatim}
 \begin{enumerate}
@@ -413,68 +365,52 @@
 
 \begin{enumerate}
     \item[] Пример простого перечисления:
+    \item первый элемент,
+    \item второй элемент.
+\end{enumerate}
+
+\begin{enumerate}
+    \item[] Пример сложного перечисления:
     \item первый уровень вложенности,
     \begin{enumerate}
-        \item второй,
+        \item второй;
         \begin{enumerate}
-            \item третий,
+            \item третий;
             \begin{enumerate}
-                \item четвертый,
-                \item б,
-                \item в,
-                \item г,
-                \item д,
-                \item е,
-                \item ж,
-                \item и,
-                \item к,
-                \item л,
-                \item м,
-                \item н,
-                \item о,
-                \item п,
-                \item р,
-                \item с,
-                \item т,
-                \item у,
-                \item ф,
-                \item x,
-                \item ц,
-                \item ш,
-                \item э,
-                \item ю,
+                \item четвертый;
+                \item б;
+                \item в;
+                \item г;
+                \item д;
+                \item е;
+                \item ж;
+                \item и;
+                \item к;
+                \item л;
+                \item м:
+                \item н;
+                \item о;
+                \item п;
+                \item р;
+                \item с;
+                \item т;
+                \item у;
+                \item ф;
+                \item x;
+                \item ц;
+                \item ш;
+                \item э;
+                \item ю;
                 \item я, при наличии б\'ольшего кол-ва элементов компилятор выдаст ошибку.
             \end{enumerate}
         \end{enumerate}
     \end{enumerate}
 \end{enumerate}
 
-\subsubsection{Сложное перечисление}
-
-\begin{verbatim}
-\begin{enumerate}
-    \item[--] ...:
-    \item ...;
-    ...
-\end{enumerate} 
-\end{verbatim}
-
-\begin{enumerate}
-    \item[] Пример сложного перечисления:
-    \item[] Разрабатываемое сверхмощное устройство можно будет применять в различных отраслях реального сектора экономики:
-    \item[--] в машиностроении:
-    \item для очистки отливок от формовочной смеси;
-    \item для очистки лопаток турбин авиационных двигателей;
-    \item для холодной штамповки из листа;
-    \item[--] в ремонте техники:
-    \item устранение наслоений на внутренних стенках труб;
-    \item очистка каналов и отверстий небольшого диаметра от грязи.
-\end{enumerate}
 
 \subsection{Иллюстрация}
  
-Пакет graphicx подключён. См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}, рисунок~\ref{fig:in_appendix} в приложении.
-
+Пакет graphicx подключён.
 
 \begin{verbatim}
 \begin{figure}[htb]
@@ -485,6 +421,8 @@
     \label{...}
 \end{figure}
 \end{verbatim}
+
+См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}, рисунок~\ref{fig:in_appendix} в приложении.
 
 \begin{figure}[htb]
     \centering
@@ -528,27 +466,45 @@
 
 \subsection{Уравнение и формула}
 
-См. формулу~\ref{eq:test_label} в подразделе, формулу~\ref{eq:in_appendix} в приложении.
+\begin{verbatim}
+\begin{equation}
+    a = b ,
+\end{equation}\par
+\end{verbatim}\vspace{-.5cm}
+{где \verb"$a$~---" первая переменная; \verb"\\" \\
+\verb"$b$~---" вторая переменная.}\bigskip
+
+См. формулу~(\ref{eq:test_label}) в подразделе, формулу~(\ref{eq:in_appendix}) в приложении.
 
 \begin{equation}\label{eq:test_label}
     \text{минус}\,a\times b=c ,
 \end{equation}
+
 где $a$~--- первая переменная; \\
 $b$~--- вторая переменная; \\
 $c$~--- третья переменная.
 
-\printbibliography
+\BeforeBeginEnvironment{thebibliography}{\clearpage\phantomsection}
+
+
+\begin{thebibliography}{99\kern\bibindent}
+% Пример сервиса для форматирования библиографии https://open-resource.ru/spisok-literatury/
+    \bibitem{bib:recomendations} Мерсов, А.А., Русаков, А.М., Филатов, В.В. Методические рекомендации по выполнению курсовой работы по дисциплине «Языки программирования».~--- М.: МИРЭА~--- Российский технологический университет, 2022.~--- 73 с.
+    \bibitem{bib:symbol} Символика Университета // РТУ МИРЭА Режим доступа: \url{https://www.mirea.ru/mediapage/the-symbolism-of-the-university/}, свободный (дата обращения: 31.05.2022).
+    \bibitem{bib:eps_cve} CVE-2013-4979 Detail // CVE Режим доступа: \url{https://www.cve.org/CVERecord?id=CVE-2013-4979}, свободный (дата обращения: 22.06.2022).
+    \bibitem{bib:githubrepo} Шаблон XeTeX для курсовой работы по дисциплине <<Языки программирования>> // GitHub Режим доступа: \url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}, свободный (дата обращения: 29.05.2022).
+    \bibitem{bib:smko} СМКО МИРЭА 7.5.1/03.П.69-16 <<Рекомендации по оформлению письменных работ обучающихся по образовательным программам бакалавриата, специалитета, магистратуры>> от 26.10.2016 2016
+\end{thebibliography}
+
 
 \appendix
 
-\section{Использованные пакеты}
+\section{Используемые пакеты}
 \label{appendix:used_packages}
 
 \begin{itemize}
     \item babel,
-    \item biblatex,
     \item caption,
-    \item csquotes,
     \item fontspec,
     \item geometry,
     \item graphicx,
@@ -586,6 +542,7 @@ $c$~--- третья переменная.
 \begin{equation}\label{eq:in_appendix}
     \text{минус}\,a\times b=c ,
 \end{equation}
+
 где $a$~--- первая переменная; \\
 $b$~--- вторая переменная; \\
 $c$~--- третья переменная.
