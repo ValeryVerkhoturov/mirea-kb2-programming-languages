@@ -1,5 +1,11 @@
 \documentclass[14pt, a4paper, titlepage]{extarticle}
 
+% Пакет делает ссылки кликабельными и дает возможность добавить метаданные .pdf документа
+\usepackage{hyperref}
+% Метаданные .pdf документа, отключение подсветки ссылок
+\hypersetup{pdftitle={Языки программирования}, pdfauthor={В. С. Верхотуров}, colorlinks=false, pdfborder={0 0 0}} % ПОМЕНЯТЬ pdftitle, pdfauthor
+
+
 \usepackage[english,main=russian]{babel}
 \usepackage{fontspec}
 \setmainfont{Times New Roman} % Если возникают проблемы при компиляции с данной строкой, необходимо на компьютер установить  Times New Roman 
@@ -41,6 +47,7 @@
 \titleformat{\section}{\FloatBarrier\parskip=6pt\filcenter\fontsize{16pt}{16pt}\selectfont\bfseries\uppercase}{\thesection}{.5em}{}
 \titleformat{\subsection}{\FloatBarrier\filcenter\bfseries}{\thesubsection}{.5em}{}
 \titleformat{\subsubsection}{\FloatBarrier\filcenter\bfseries}{\thesubsubsection}{.5em}{}
+
 
 \AddToHook{cmd/section/before}{\clearpage} % Начинать раздел с новой страницы
 
@@ -95,6 +102,7 @@
         \addcontentsline{toc}{section}{\appendixname~\thesection}
         \oldsec*} % Нумерация раздела после названия
 }
+
 \makeatother
 
 \usepackage[labelsep=endash]{caption} % Настройка пунктуации
@@ -102,19 +110,18 @@
 
 \addto\captionsrussian{\renewcommand{\figurename}{Рисунок}} % Переопределение caption из babel
 
-% Пакет делает ссылки кликабельными и дает возможность добавить метаданные .pdf документа
-\usepackage{hyperref}
-% Метаданные .pdf документа, отключение подсветки ссылок
-\hypersetup{pdftitle={Языки программирования}, pdfauthor={В. С. Верхотуров}, colorlinks=false, pdfborder={0 0 0}}
 
 % Настройка заголовка списка использованных источников
 \addto\captionsrussian{\renewcommand{\refname}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}}
 
 \BeforeBeginEnvironment{thebibliography}{
-\clearpage\phantomsection
-}
+    \phantomsection % для корректной ссылки в оглавлении 
+    \makeatletter
+    \renewcommand*{\@biblabel}[1]{#1.\hfill} % формат нумерации списка
+    \makeatother}
 
 \setlength{\bibindent}{-1.25cm} % Убрать отступы у элементов списка использованных источников + \{thebibliography}{99\kern\bibindent}
+
 
 \begin{document}
 
@@ -138,7 +145,7 @@
                 \centering
                 Утверждаю \par
                 Заведующий кафедрой КБ-2 \par
-                \blankLine{(Ф.И.О.)}{Фамилия~И.О.}~\blankLine{(подпись)}{\hspace{2cm}} \par
+                \blankLine{(Ф.И.О.)}{И.~О.~Фамилия}~\blankLine{(подпись)}{\hspace{2cm}} \par
                 \blankDate{}{}
             \end{minipage}
         \end{flushright}
@@ -147,7 +154,7 @@
         по дисциплине \blankLine{(наименование дисциплины)}{Языки программирования}
     \end{center}
     \textbf{Тема курсовой работы \uline{\hspace{11cm}}} \bigskip\par
-    Студент группы \blankLine{учебная группа, фамилия, имя, отчество студента}{БСБО-05-20 Верхотуров Валерий Сергеевич} \hfill\blankLine{подпись студента}{\hspace{3cm}} \bigskip\par
+    Студент группы \blankLine{учебная группа, фамилия, имя, отчество студента}{БСБО-05-20 В.~С.~Верхотуров\hspace{3cm}} \hfill\blankLine{подпись студента}{\hspace{3cm}} \bigskip\par
     Руководитель курсовой работы \blankLine{должность, звание, учёная степень}{\hspace{6cm}} \hfill\blankLine{подпись руководителя}{\hspace{3cm}} \bigskip\par
     Рецензент (при наличии) \blankLine{должность, звание, учёная степень}{\hspace{7cm}} \hfill\blankLine{подпись рецензента}{\hspace{3cm}} \bigskip\par
     \begin{tabular}{@{}ll}
@@ -155,7 +162,7 @@
         Допущен к защите & \blankDate{}{}
     \end{tabular}
     \begin{center}
-        \vfill Москва~---~\the\year{}~г.
+        \vfill Москва~-- \the\year{}~г.
     \end{center}
     \newpage
     \textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate{}{} \par
@@ -163,23 +170,25 @@
     \hfill\blankDate{}{} \par
     \textbf{Задание на курсовую работу получил} \blankLine{(Ф.И.О. исполнителя)}{\hspace{3cm}} \hfill\blankLine{(подпись исполнителя)}{\hspace{3cm}} \par\bigskip
     \begin{center}
-        Москва~---~\the\year{}~г.
+        Москва~-- \the\year{}~г.
     \end{center}
 \end{titlepage}
 \addtocounter{page}{2}
 
 \begin{abstract}
-    Этот документ имеет настройки, соответствующие разделу <<ТРЕБОВАНИЯ ПО ОФОРМЛЕНИЮ РАБОТЫ>> у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite[раздел~3]{bib:recomendations}, скомпилированный системой компьютерной вёрстки XeTeX. 
+    Этот документ имеет настройки, соответствующие у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки XeTeX. 
     
-    В документе используются пакеты для форматирования документа и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов .jpeg, .png). Настройки форматирования, список источников находятся в преамбуле (при удалении всего содержимого из окружения document настройки форматирования не изменятся).
+    В документе используются пакеты для форматирования документа и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов JPEG, PNG). При удалении всего содержимого из окружения document настройки форматирования не изменятся.
     
     При использовании \url{https://overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
     
-    Замечания о расхождении с~\cite[раздел~3]{bib:recomendations} можно писать в~\cite[Issues]{bib:githubrepo}, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
+    Замечания о расхождении с~\cite{bib:recomendations}, разделом 3,  можно писать в~\cite{bib:githubrepo}, Issues, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
+    
+    Примечание~--- документ скомпилирован \today{}
     
     \subsection*{.tex в .docx}
     
-    СМКО МИРЭА~\cite[подраздел~1.1]{bib:smko} рекомендует использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
+    В СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
     
     \subsection*{Метаданные .pdf}
     
@@ -206,19 +215,19 @@
 При использованих своих титульных страниц необходимо удалить окружение titlepage:
 \begin{verbatim}
 \begin{titlepage}
-...
+    ...
 \end{titlepage}
 \end{verbatim}
-класс документа поменять на
+убрать опцию titlepage у класса документа:
 \begin{verbatim}
 \documentclass[14pt, a4paper]{extarticle} 
 \end{verbatim}
 
-К основному тексту после титульных листов необходимо добавить кол-во вставленных страниц. Пример:
+К основному тексту после титульных листов необходимо добавить количество вставленных страниц. Пример:
 
 \begin{verbatim}
 \begin{titlepage}
-...
+    ...
 \end{titlepage}
 \addtocounter{page}{2}
 \end{verbatim}
@@ -227,8 +236,20 @@
 
 \begin{verbatim}
 \begin{abstract}
-...
+    ...
 \end{abstract}
+\end{verbatim}
+
+Подраздел аннотации:
+\begin{verbatim}
+\subsection*{...}
+...
+\end{verbatim}
+
+Пункт аннотации:
+\begin{verbatim}
+\subsubsection*{...}
+...
 \end{verbatim}
 
 \subsection{Оглавление}
@@ -260,20 +281,21 @@
 ...
 \end{verbatim}
 
- Перед началом подраздела в документ включаются все объявленные, но не отображённые плавающие окружения.
+Перед началом подраздела в документ включаются все объявленные, но не отображённые плавающие окружения.
 
 \subsection{Пункт}
 
 \begin{verbatim}
-\subsubsection{...}
+\subsubsection{}
 ...
 \end{verbatim}
 
- Перед началом пункта в документ включаются все объявленные, но не отображённые плавающие окружения.
+Перед началом пункта в документ включаются все объявленные, но не отображённые плавающие окружения.
 
-\subsubsection{Пример пункта}
+\subsubsection{}
 
-Текст пункта.
+Пункты могут иметь только порядковый номер без заголовка.
+
 
 \subsection{Список использованных источников}
 
@@ -387,7 +409,7 @@
                 \item и;
                 \item к;
                 \item л;
-                \item м:
+                \item м;
                 \item н;
                 \item о;
                 \item п;
@@ -401,7 +423,7 @@
                 \item ш;
                 \item э;
                 \item ю;
-                \item я, при наличии б\'ольшего кол-ва элементов компилятор выдаст ошибку.
+                \item я, при наличии б\'ольшего количества элементов компилятор выдаст ошибку.
             \end{enumerate}
         \end{enumerate}
     \end{enumerate}
@@ -422,7 +444,7 @@
 \end{figure}
 \end{verbatim}
 
-См. рисунок~\ref{fig:test_label} на стр.~\pageref{fig:test_label}, рисунок~\ref{fig:in_appendix} в приложении.
+См. рисунок~\ref{fig:test_label} на с.~\pageref{fig:test_label}, рисунок~\ref{fig:in_appendix} (в приложении).
 
 \begin{figure}[htb]
     \centering
@@ -432,11 +454,11 @@
     \label{fig:test_label}
 \end{figure}
 
-Обратите внимание, что окружение figure является \emph{плавающим}, и иллюстрация может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
+Обратите внимание, что окружение figure является \emph{плавающим} в пределах раздела, и иллюстрация может появиться не там, где Вы ожидаете. Для размещения иллюстрации в конкретное место необходимо воспользоваться опцией H из пакета float (не подключён).
 
 \subsection{Таблица}
 
-См. таблицу~\ref{tab:test_label} на стр.~\pageref{tab:test_label}, таблицу~\ref{tab:in_appendix} в приложении.
+См. таблицу~\ref{tab:test_label} на с.~\pageref{tab:test_label}, таблицу~\ref{tab:in_appendix} (в приложении).
 
 \begin{verbatim}
 \begin{table}[htb]
@@ -462,7 +484,7 @@
     \label{tab:test_label}
 \end{table}
 
-Обратите внимание, что окружение table является \emph{плавающим}, и таблица может появиться не там, где Вы ожидаете. Для размещения таблицы в конкретное место необходимо воспользоваться опцией H из пакета float (не подключен).
+Обратите внимание, что окружение table является \emph{плавающим} в пределах раздела, и таблица может появиться не там, где Вы ожидаете. Для размещения таблицы в конкретное место необходимо воспользоваться опцией H из пакета float (не подключён).
 
 \subsection{Уравнение и формула}
 
