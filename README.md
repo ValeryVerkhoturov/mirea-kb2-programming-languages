@@ -1,18 +1,3 @@
 XeLaTeX шаблон по учебно-методическому пособию [«Методические рекомендации по выполнению курсовой работы по дисциплине „Языки программирования“» А.А. Мерсов, А.М. Русаков, В.В. Филатов 2022](https://library.mirea.ru/share/4488)
 
-![0e2d031645204728a2a9a7d956f89d41-0001](https://user-images.githubusercontent.com/70258211/174989756-a332e863-bef5-4fe4-a12d-6be5fa9d4749.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0002](https://user-images.githubusercontent.com/70258211/174989887-fba86821-41ad-441c-9b7a-11c21e029b73.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0003](https://user-images.githubusercontent.com/70258211/174989894-d8bec129-3c8e-4bab-acd5-a2eb1b883bac.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0004](https://user-images.githubusercontent.com/70258211/174989905-aaa770f3-39ec-42ea-8ebc-d91c02a2099c.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0005](https://user-images.githubusercontent.com/70258211/174989944-7b2d7c0b-7842-49ab-9d5b-6257a0485bc3.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0006](https://user-images.githubusercontent.com/70258211/174989955-0a9602f7-ef0d-45ae-810b-d349bf2dda72.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0007](https://user-images.githubusercontent.com/70258211/174989975-7c5b33c5-45b4-4d0d-9649-d205c2e73f07.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0008](https://user-images.githubusercontent.com/70258211/174990129-4219982c-7fb2-4d94-8d9d-61cd4cdd10c9.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0009](https://user-images.githubusercontent.com/70258211/174990146-70b44f0e-8557-405f-aa20-f1bfb648e133.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0010](https://user-images.githubusercontent.com/70258211/174990192-37fcc3e5-a51d-4e1b-87bb-3d024f0985da.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0011](https://user-images.githubusercontent.com/70258211/174990238-13d50ad9-c346-4c97-b69b-fdfcf9be0da3.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0012](https://user-images.githubusercontent.com/70258211/174990254-b8c8292d-b3d3-45c4-ba0a-5b66fa6c5cde.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0013](https://user-images.githubusercontent.com/70258211/174990322-8b2016af-ee9a-4686-8fbc-9134fc1c0ca5.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0014](https://user-images.githubusercontent.com/70258211/174990375-05ac5a27-8bb9-4d19-bfdc-17e0df5e2970.jpeg)
-![0e2d031645204728a2a9a7d956f89d41-0015](https://user-images.githubusercontent.com/70258211/174990444-188f7c5d-5677-49ae-ae22-9690eb5b2ef3.jpeg)
-
+[Документация, пример скомпилированного документа](/main.pdf).
