@@ -60,16 +60,23 @@
 \labelwidth=1.25cm % Горизонтальный отступ у элемента списка
 
 % Ненумерованные списки разной вложенности
-\renewcommand\labelitemi{--}
-\renewcommand\labelitemii{--}
-\renewcommand\labelitemiii{--}
-\renewcommand\labelitemiv{--}
+\renewcommand\labelitemi{---}
+\renewcommand\labelitemii{---}
+\renewcommand\labelitemiii{---}
+\renewcommand\labelitemiv{---}
 
 % Нумерованные списки разной вложенности
 \renewcommand\labelenumi{\arabic{enumi})}
 \renewcommand\labelenumii{\asbuk{enumii})}
 \renewcommand\labelenumiii{\arabic{enumiii})}
 \renewcommand\labelenumiv{\asbuk{enumiv})}
+
+% Форматирование списков
+\usepackage{enumitem}
+\setlist{wide, itemsep=0pt, parsep=0pt}
+\makeatletter
+\AddEnumerateCounter*{\asbuk}{\c@asbuk}
+\makeatother
 
 \makeatletter
 % Буквы для нумерации списка (исключены ё, з, щ, ч, ъ, ы, ь)
@@ -166,7 +173,7 @@
 		Допущен к защите & \blankDate{}{}
 	\end{tabular}
 	\begin{center}
-		\vfill Москва~-- \the\year{}~г.
+		\vfill Москва~--- \the\year{}~г.
 	\end{center}
 	\newpage
 	\textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate{}{} \par
@@ -174,25 +181,29 @@
 	\hfill\blankDate{}{} \par
 	\textbf{Задание на курсовую работу получил} \blankLine{(Ф.И.О. исполнителя)}{\hspace{3cm}} \hfill\blankLine{(подпись исполнителя)}{\hspace{3cm}} \par\bigskip
 	\begin{center}
-		Москва~-- \the\year{}~г.
+		Москва~--- \the\year{}~г.
 	\end{center}
 \end{titlepage}
 \addtocounter{page}{2}
 
 \begin{abstract}
-	Этот документ имеет настройки, соответствующие у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки XeTeX. 
+	Этот документ имеет настройки, соответствующие у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки Xe\LaTeX. 
 	
 	В документе используются пакеты для форматирования документа и graphicx для иллюстраций. Полный список представлен в приложении~\ref{appendix:used_packages}. В родительской директории главного .tex файла должен лежать файл чёрно-белого герба для титульной страницы \verb"MIREA_Gerb_Black" (в шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов JPEG, PNG). При удалении всего содержимого из окружения document настройки форматирования не изменятся.
 	
-	При использовании \url{https://overleaf.com} убедитесь, что в опциях проекта стоит компилятор XeLaTeX. 
+	Документ компилируется в \url{https://overleaf.com} с опцией compiler~--- XeLaTeX. 
 	
-	Замечания о расхождении с~\cite{bib:recomendations}, разделом 3,  можно писать в~\cite{bib:githubrepo}, Issues, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
+	Замечания о расхождении с~\cite{bib:recomendations}, разделом 3,  можно писать в Issues~\cite{bib:githubrepo}, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
 	
 	Примечание~--- документ скомпилирован \today{}
 	
 	\subsection*{.tex в .docx}
 	
-	В СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
+	В СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа в .doc (.docx). 
+	
+	Шаблон .tex не может быть экспортирован в .doc (.docx). Возможно скомпилировать .pdf, сохранить в Google Документы и экспортировать в .docx или воспользоваться аналогичным конвертером. При этом настройки форматирования документа не сохраняются, возможен некорректный экспорт математических формул.
+	
+	Pandoc форматирование документа не сохраняет.
 	
 	\subsection*{Метаданные .pdf}
 	
@@ -298,7 +309,7 @@
 
 \subsubsection{}
 
-Пункты могут иметь только порядковый номер без заголовка.
+Согласно ГОСТ~\cite{bib:gost732}, пункту 6.2.3, пункты могут иметь только порядковый номер без заголовка.
 
 
 \subsection{Список использованных источников}
@@ -351,7 +362,9 @@
 
 За порядком приложений необходимо следить самостоятельно.
 
-\subsection{Список}
+\subsection{Перечни}
+
+\subsubsection{}
 
 \begin{verbatim}
 	\begin{itemize}
@@ -361,26 +374,12 @@
 \end{verbatim}
 
 \begin{itemize}
-	\item[] Пример простого списка:
+	\item[] Пример простого перечня с тире:
 	\item первый элемент,
 	\item второй элемент.
 \end{itemize}
 
-\begin{itemize}
-	\item[] Пример сложного списка:
-	\item первый уровень вложенности;
-	\begin{itemize}
-		\item второй;
-		\begin{itemize}
-			\item третий;
-			\begin{itemize}
-				\item четвертый.
-			\end{itemize}
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
-
-\subsection{Перечисление}
+\subsubsection{}
 
 \begin{verbatim}
 	\begin{enumerate}
@@ -390,46 +389,52 @@
 \end{verbatim}
 
 \begin{enumerate}
-	\item[] Пример простого перечисления:
+	\item[] Пример простого перечня с закрывающей скобкой и числом:
 	\item первый элемент,
 	\item второй элемент.
 \end{enumerate}
 
+\begin{enumerate}[label=\asbuk*), ref=\asbuk*]
+	\item[] Пример простого перечня с закрывающей скобкой и буквой:
+	\item а;
+	\item б;
+	\item в;
+	\item г;
+	\item д;
+	\item е;
+	\item ж;
+	\item и;
+	\item к;
+	\item л;
+	\item м;
+	\item н;
+	\item о;
+	\item п;
+	\item р;
+	\item с;
+	\item т;
+	\item у;
+	\item ф;
+	\item x;
+	\item ц;
+	\item ш;
+	\item э;
+	\item ю;
+	\item я, при наличии б\'ольшего количества элементов компилятор выдаст ошибку.
+\end{enumerate}
+
+\subsubsection{}
+
 \begin{enumerate}
-	\item[] Пример сложного перечисления:
+	\item[] Пример сложного перечня:
 	\item первый уровень вложенности,
 	\begin{enumerate}
 		\item второй;
-		\begin{enumerate}
+		\begin{itemize}
 			\item третий;
-			\begin{enumerate}
-				\item четвертый;
-				\item б;
-				\item в;
-				\item г;
-				\item д;
-				\item е;
-				\item ж;
-				\item и;
-				\item к;
-				\item л;
-				\item м;
-				\item н;
-				\item о;
-				\item п;
-				\item р;
-				\item с;
-				\item т;
-				\item у;
-				\item ф;
-				\item x;
-				\item ц;
-				\item ш;
-				\item э;
-				\item ю;
-				\item я, при наличии б\'ольшего количества элементов компилятор выдаст ошибку.
-			\end{enumerate}
-		\end{enumerate}
+			\item первый элемент;
+			\item второй элемент.
+		\end{itemize}
 	\end{enumerate}
 \end{enumerate}
 
@@ -518,8 +523,9 @@ $c$~--- третья переменная.
 	\bibitem{bib:recomendations} Мерсов, А.А., Русаков, А.М., Филатов, В.В. Методические рекомендации по выполнению курсовой работы по дисциплине «Языки программирования».~--- М.: МИРЭА~--- Российский технологический университет, 2022.~--- 73 с.
 	\bibitem{bib:symbol} Символика Университета // РТУ МИРЭА Режим доступа: \url{https://www.mirea.ru/mediapage/the-symbolism-of-the-university/}, свободный (дата обращения: 31.05.2022).
 	\bibitem{bib:eps_cve} CVE-2013-4979 Detail // CVE Режим доступа: \url{https://www.cve.org/CVERecord?id=CVE-2013-4979}, свободный (дата обращения: 22.06.2022).
-	\bibitem{bib:githubrepo} Шаблон XeTeX для курсовой работы по дисциплине <<Языки программирования>> // GitHub Режим доступа: \url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}, свободный (дата обращения: 29.05.2022).
-	\bibitem{bib:smko} СМКО МИРЭА 7.5.1/03.П.69-16 <<Рекомендации по оформлению письменных работ обучающихся по образовательным программам бакалавриата, специалитета, магистратуры>> от 26.10.2016 2016
+	\bibitem{bib:githubrepo} Шаблон XeLaTeX для курсовой работы по дисциплине <<Языки программирования>> // GitHub Режим доступа: \url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}, свободный (дата обращения: 29.05.2022).
+	\bibitem{bib:smko} СМКО МИРЭА 7.5.1/03.П.69-16 <<Рекомендации по оформлению письменных работ обучающихся по образовательным программам бакалавриата, специалитета, магистратуры>> от 26.10.2016 2016.
+	\bibitem{bib:gost732} Конституция Российской Федерации <<МЕЖГОСУДАРСТВЕННЫЙ СТАНДАРТ. ОТЧЕТ О НАУЧНО-ИССЛЕДОВАТЕЛЬСКОЙ РАБОТЕ>> от 01.07.2017 \textnumero~ГОСТ 7.32-2017 // Режим доступа: \url{https://docs.cntd.ru/document/1200157208}, свободный. - 2017.
 \end{thebibliography}
 
 
@@ -531,6 +537,7 @@ $c$~--- третья переменная.
 \begin{itemize}
 	\item babel,
 	\item caption,
+	\item enumitem,
 	\item fontspec,
 	\item geometry,
 	\item graphicx,
