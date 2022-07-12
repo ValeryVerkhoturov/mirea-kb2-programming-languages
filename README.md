@@ -2,4 +2,35 @@ XeLaTeX шаблон по учебно-методическому пособию
 
 [Документация к классу документа, пример скомпилированного документа](/document.pdf).
 
+Шаблон документа:
+```TeX
+\documentclass{mirea-prog-lang}
 
+\usepackage{hyperref}
+\hypersetup{pdftitle={Языки программирования}, pdfauthor={И. О. Фамилия}, colorlinks=false, pdfborder={0 0 0}}
+
+\begin{document}
+  \begin{titlepage}
+    ...
+  \end{titlepage}
+  
+  \begin{abstract}
+    ...
+  \end{abstract}
+  
+  \tableofcontents
+  
+  \section*{Введение}
+  \phantomsection 
+  \addcontentsline{toc}{section}{Введение}
+  ...
+  
+  \section{...}
+  ...
+  
+  \appendix
+  \section{...}
+  ...
+  
+\end{document}
+```

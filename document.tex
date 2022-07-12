@@ -62,7 +62,7 @@
 \addtocounter{page}{2}
 
 \begin{abstract}
-	Этот документ демонстрирует класс документа mirea-prog-lang, соответствующий у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки X\raisebox{-1mm}{\reflectbox{E}}\LaTeX. 
+	Этот документ демонстрирует класс документа mirea-prog-lang, соответствующий у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки X\makebox[1.7mm]{\raisebox{-1.1mm}{\reflectbox{E}}}\LaTeX. 
 	
 	В~классе используются пакеты для~форматирования документа и graphicx для~иллюстраций. Полный список представлен в~приложении~\ref{appendix:used_packages}. В~родительской директории главного .tex файла должен лежать файл чёрно-белого герба для~титульной страницы \verb"MIREA_Gerb_Black" (в~шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на~сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов JPEG, PNG).
 	
@@ -74,15 +74,7 @@
 	
 	\subsection*{.tex в .docx}
 	
-	В~СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа~в .doc (.docx). 
-	
-	Шаблон .tex не~может быть экспортирован в~.doc (.docx).
-	
-	\subsection*{Пакет hyperref}
-	
-	Чтобы сделать интерактивные ссылки и добавить метаданные документа необходимо включить пакет hyperref в~Ваш документ. Пример:\\
-	\verb"\usepackage{hyperref}"\\
-	\verb"\hypersetup{pdftitle={"Языки программирования\verb"},"\\\hspace*{3cm}\verb"pdfauthor={"В. С. Верхотуров\verb"},"\\\hspace*{3cm}\verb"colorlinks=false,"\\\hspace*{3cm}\verb"pdfborder={0 0 0}}"
+	В~СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа~в .doc (.docx). Шаблон .tex не~может быть экспортирован в~.doc (.docx).
 	
 \end{abstract}
 
@@ -92,7 +84,29 @@
 \phantomsection
 \addcontentsline{toc}{section}{Введение}
 
-Текст введения.
+\subsection*{Шаблон документа}
+
+\noindent\verb"\documentclass{mirea-prog-lang}"\\\\
+\verb"\usepackage{hyperref}"\\
+\verb"\hypersetup{pdftitle={"Языки программирования\verb"},"\\\hspace*{3cm}\verb"pdfauthor={"И. О. Фамилия\verb"},"\\\hspace*{3cm}\verb"colorlinks=false,"\\\hspace*{3cm}\verb"pdfborder={0 0 0}}"\\
+\verb"\begin{document}"\\
+\hspace*{1cm}\verb"\begin{titlepage}"\\
+\hspace*{2cm}\verb"..."\\
+\hspace*{1cm}\verb"\end{titlepage}"\\
+\hspace*{1cm}\verb"\begin{abstract}"\\
+\hspace*{2cm}\verb"..."\\
+\hspace*{1cm}\verb"\end{abstract}"\\\\
+\hspace*{1cm}\verb"\tableofcontents"\\\\
+\hspace*{1cm}\verb"\section*{"Введение\verb"}"\\
+\hspace*{1cm}\verb"\phantomsection"\\
+\hspace*{1cm}\verb"\addcontentsline{toc}{section}{"Введение\verb"}"\\
+\hspace*{1cm}\verb"..."\\\\
+\hspace*{1cm}\verb"\section{...}"\\
+\hspace*{1cm}\verb"..."\\\\
+\hspace*{1cm}\verb"\appendix"\\
+\hspace*{1cm}\verb"\section{...}"\\
+\hspace*{1cm}\verb"..."\\
+\verb"\end{document}"
 
 \section{Структура документа}
 
