@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{mirea-prog-lang}[2014/08/16 Class for KB-2 1 couse thesis]
+\ProvidesClass{mirea-prog-lang}[2022/07/12 Class for KB-2 1 course thesis]
 
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
