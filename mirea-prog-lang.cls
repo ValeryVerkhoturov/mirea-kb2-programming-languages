@@ -8,9 +8,13 @@
 \LoadClass[14pt, a4paper, titlepage]{extarticle}
 
 
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=false, pdfborder={0 0 0}} % Отключение подсветки ссылок
+
+
 \RequirePackage[english,main=russian]{babel}
 \RequirePackage{fontspec}
-\setmainfont{Times New Roman} % Если возникают проблемы при компиляции с данной строкой, необходимо на компьютер установить  Times New Roman 
+\setmainfont{Times New Roman} % Если возникают проблемы при компиляции с данной строкой, необходимо на компьютер установить  Times New Roman
 \RequirePackage{newtxmath} % Поменять гарнитуру в фомулах на Times New Roman
 
 \RequirePackage[left=30mm, right=15mm, top=20mm, bottom=20mm]{geometry}
