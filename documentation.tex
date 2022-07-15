@@ -1,80 +1,19 @@
 % !TeX program = xelatex
 % !TeX encoding = UTF-8
-% !TeX root    = document.tex
+% !TeX root    = documentation.tex
 \documentclass{mirea-prog-lang}
 
 \usepackage{hyperref}
 % Метаданные .pdf документа
-\hypersetup{pdftitle={Языки программирования}, pdfauthor={И. О. Фамилия}} % ПОМЕНЯТЬ pdftitle, pdfauthor
+\hypersetup{pdftitle={Документация для mirea-prog-lang}}
+
+\title{Документация к классу документа mirea-prog-lang\footnote{\url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}}}
+\date{\today}
 
 \begin{document}
-	
-\begin{titlepage}
-	\pagestyle{empty}
-	\setlength\parindent{0pt}
-	\newcommand{\blankDate}[2]{\mbox{\uline{<<\makebox[.7cm]{#1}>>~\makebox[2cm]{#2}~\the\year{}~г.}}} % {день}{месяц}
-	\newcommand\blankLine[2]{$\underset{\text{#1}}{\text{\uline{#2}}}$}
-	\begin{center}
-		\includegraphics[width=2.5cm]{MIREA_Gerb_Black} \par
-		МИНОБРНАУКИ РОССИИ \par 
-		Федеральное государственное бюджетное образовательное учреждение высшего образования \par
-		\textbf{<<МИРЭА~--- Российский технологический университет>>} \par
-		\textbf{\fontsize{16pt}{16pt}\selectfont РТУ МИРЭА} \par
-		\blankLine{(наименование института, филиала)}{Институт кибербезопасности и цифровых технологий} \par
-		\blankLine{(наименование кафедры)}{Кафедра КБ-2 <<Прикладные информационные технологии>>} \par
-		\begin{flushright}
-			\begin{minipage}{.5\textwidth}
-				\fontsize{12pt}{12pt}\selectfont
-				\setlength{\parskip}{0pt}
-				\centering
-				Утверждаю \par
-				Заведующий кафедрой КБ-2 \par
-				\blankLine{(Ф.И.О.)}{И.~О.~Фамилия}~\blankLine{(подпись)}{\hspace{2cm}} \par
-				\blankDate{}{}
-			\end{minipage}
-		\end{flushright}
-		{\fontsize{16pt}{16pt}\selectfont
-			\textbf{КУРСОВАЯ РАБОТА}} \par
-		по дисциплине \blankLine{(наименование дисциплины)}{Языки программирования}
-	\end{center}
-	\textbf{Тема курсовой работы \uline{\hspace{11cm}}} \bigskip\par
-	Студент группы \blankLine{учебная группа, фамилия, имя, отчество студента}{БСБО-05-20 В.~С.~Верхотуров\hspace{3cm}} \hfill\blankLine{подпись студента}{\hspace{3cm}} \bigskip\par
-	Руководитель курсовой работы \blankLine{должность, звание, учёная степень}{\hspace{6cm}} \hfill\blankLine{подпись руководителя}{\hspace{3cm}} \bigskip\par
-	Рецензент (при наличии) \blankLine{должность, звание, учёная степень}{\hspace{7cm}} \hfill\blankLine{подпись рецензента}{\hspace{3cm}} \bigskip\par
-	\begin{tabular}{@{}ll}
-		Работа предоставлена к защите & \blankDate{}{} \bigskip\\
-		Допущен к защите & \blankDate{}{}
-	\end{tabular}
-	\begin{center}
-		\vfill Москва~--- \the\year{}~г.
-	\end{center}
-	\newpage
-	\textbf{Срок предоставления к защите курсовой работы до} \hfill\blankDate{}{} \par
-	\textbf{Задание на курсовую работу выдал} \blankLine{(Ф.И.О. руководителя)}{\hspace{4cm}} \hfill\blankLine{(подпись руководителя)}{\hspace{3cm}} \par
-	\hfill\blankDate{}{} \par
-	\textbf{Задание на курсовую работу получил} \blankLine{(Ф.И.О. исполнителя)}{\hspace{3cm}} \hfill\blankLine{(подпись исполнителя)}{\hspace{3cm}} \par\bigskip
-	\begin{center}
-		Москва~--- \the\year{}~г.
-	\end{center}
-\end{titlepage}
-\addtocounter{page}{2}
 
-\begin{abstract}
-	Этот документ демонстрирует класс документа mirea-prog-lang, соответствующий у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, скомпилированный системой компьютерной вёрстки X\makebox[1.7mm]{\raisebox{-1.1mm}{\reflectbox{E}}}\LaTeX. 
-	
-	В~классе используются пакеты для~форматирования документа и graphicx для~иллюстраций. Полный список представлен в~приложении~\ref{appendix:used_packages}. В~родительской директории главного .tex файла должен лежать файл чёрно-белого герба для~титульной страницы \verb"MIREA_Gerb_Black" (в~шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на~сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов JPEG, PNG).
-	
-	Документ компилируется в \url{https://overleaf.com} с опцией compiler~--- XeLaTeX. 
-	
-	Замечания о расхождении с~\cite{bib:recomendations}, разделом 3,  можно писать в Issues~\cite{bib:githubrepo}, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
-	
-	Примечание~--- документ скомпилирован \today
-	
-	\subsection*{.tex в .docx}
-	
-	В~СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа~в .doc (.docx). Шаблон .tex не~может быть экспортирован в~.doc (.docx).
-	
-\end{abstract}
+\maketitle
+\addtocounter{page}{1}
 
 \tableofcontents
 
@@ -82,39 +21,36 @@
 \phantomsection
 \addcontentsline{toc}{section}{Введение}
 
+mirea-prog-lang~--- класс документа, соответствующий у\-чеб\-но-ме\-то\-ди\-чес\-ко\-му пособию~\cite{bib:recomendations}, разделу 3, компилируемый системой компьютерной вёрстки X\makebox[1.7mm]{\raisebox{-1.1mm}{\reflectbox{E}}}\LaTeX. 
+
+В~классе используются пакеты для~форматирования документа и graphicx для~иллюстраций. Полный список представлен в~приложении~\ref{appendix:used_packages}. В~родительской директории главного .tex файла должен лежать файл чёрно-белого герба для~титульной страницы \verb"MIREA_Gerb_Black" (в~шаблоне используется .eps файл~--- единственный векторный формат, предоставляемый на~сайте вуза~\cite{bib:symbol}, из-за уязвимости .eps файла~\cite{bib:eps_cve} также возможно использование форматов JPEG, PNG).
+
+Документ компилируется в \url{https://overleaf.com} с опцией compiler~--- XeLaTeX. 
+
+Замечания о расхождении с~\cite{bib:recomendations}, разделом 3,  можно писать в Issues~\cite{bib:githubrepo}, задать вопрос в \url{https://t.me/ValerianaOfficinalis}.
+
+Примечание~--- документ скомпилирован \today
+
+\subsection*{.tex в .docx}
+
+В~СМКО МИРЭА~\cite{bib:smko}, подразделе 1.1, рекомендуется использовать текстовый редактор, обеспечивающий корректное сохранение или экспорт документа~в .doc (.docx). Шаблон .tex не~может быть экспортирован в~.doc (.docx).
+
 \subsection*{Шаблон документа}
 
-\noindent\verb"\documentclass{mirea-prog-lang}"\\\\
-\verb"\usepackage{hyperref}"\\
-\verb"\hypersetup{pdftitle={"Языки программирования\verb"},"\\\hspace*{3cm}\verb"pdfauthor={"И. О. Фамилия\verb"},"\\\hspace*{3cm}\verb"colorlinks=false,"\\\hspace*{3cm}\verb"pdfborder={0 0 0}}"\\
-\verb"\begin{document}"\\
-\hspace*{1cm}\verb"\begin{titlepage}"\\
-\hspace*{2cm}\verb"..."\\
-\hspace*{1cm}\verb"\end{titlepage}"\\
-\hspace*{1cm}\verb"\begin{abstract}"\\
-\hspace*{2cm}\verb"..."\\
-\hspace*{1cm}\verb"\end{abstract}"\\\\
-\hspace*{1cm}\verb"\tableofcontents"\\\\
-\hspace*{1cm}\verb"\section*{"Введение\verb"}"\\
-\hspace*{1cm}\verb"\phantomsection"\\
-\hspace*{1cm}\verb"\addcontentsline{toc}{section}{"Введение\verb"}"\\
-\hspace*{1cm}\verb"..."\\\\
-\hspace*{1cm}\verb"\section{...}"\\
-\hspace*{1cm}\verb"..."\\\\
-\hspace*{1cm}\verb"\appendix"\\
-\hspace*{1cm}\verb"\section{...}"\\
-\hspace*{1cm}\verb"..."\\
-\verb"\end{document}"
+Шаблон документа для КР см. в ./additions/document\_template.tex.
+
 
 \section{Структура документа}
 
-Структура документа совместима со стандартным классом документа article.
+Структура документа совместима со стандартным классом документа extarticle (article). Поддерживаются опции extarticle.
+
 
 \subsection{Титульная страница}
 
 Рекомендуется использовать выданные преподавателем титульные страницы (например, с~помощью пакета pdfpages).
 
-Пример титульной страницы из~у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations} добавлен в~этот документ.
+Пример титульной страницы из~у\-чеб\-но-ме\-то\-ди\-чес\-ко\-го пособия~\cite{bib:recomendations} добавлен в~шаблон ./additions/document\_template.tex.
+
 
 \subsection{Аннотация}
 
@@ -142,12 +78,14 @@
 	\tableofcontents
 \end{verbatim}
 
+
 \subsection{Введение, раздел без нумерации}
 
 \noindent\verb"\section*{"Введение\verb"}"\\
 \verb"\phantomsection"\\
 \verb"\addcontentsline{toc}{section}{"Введение\verb"}"\\
 \verb"..."
+
 
 \subsection{Раздел}
 
@@ -158,6 +96,7 @@
 
 Перед началом раздела в~документ включаются все объявленные, но не~отображённые плавающие окружения.
 
+
 \subsection{Подраздел}
 
 \begin{verbatim}
@@ -167,6 +106,7 @@
 
 Перед началом подраздела в~документ включаются все объявленные, но не~отображённые плавающие окружения.
 
+
 \subsection{Пункт}
 
 \begin{verbatim}
@@ -175,6 +115,7 @@
 \end{verbatim}
 
 Перед началом пункта в~документ включаются все объявленные, но не~отображённые плавающие окружения.
+
 
 \subsubsection{}
 
@@ -231,7 +172,9 @@
 
 За~порядком приложений необходимо следить самостоятельно.
 
+
 \subsection{Перечни}
+
 
 \subsubsection{}
 
@@ -247,6 +190,7 @@
 	\item первый элемент,
 	\item второй элемент.
 \end{itemize}
+
 
 \subsubsection{}
 
@@ -292,17 +236,18 @@
 	\item я, при~наличии б\'ольшего количества элементов компилятор выдаст ошибку.
 \end{enumerate}
 
+
 \subsubsection{}
 
 \begin{enumerate}
 	\item[] Пример сложного перечня:
 	\item первый уровень вложенности,
 	\begin{enumerate}
-		\item второй;
+		\item второй уровень вложенности;
 		\begin{itemize}
-			\item третий;
-			\item первый элемент;
-			\item второй элемент.
+			\item третий уровень вложенности;
+			\item элемент;
+			\item элемент.
 		\end{itemize}
 	\end{enumerate}
 \end{enumerate}
@@ -334,6 +279,7 @@
 
 Обратите внимание, что окружение figure является \emph{плавающим} в~пределах раздела, и иллюстрация может появиться не~там, где Вы ожидаете. Для размещения иллюстрации в~конкретное место необходимо воспользоваться опцией H из~пакета float (не~подключён).
 
+
 \subsection{Таблица}
 
 См. таблицу~\ref{tab:test_label} на~с.~\pageref{tab:test_label}, таблицу~\ref{tab:in_appendix} (в~приложении).
@@ -363,6 +309,7 @@
 \end{table}
 
 Обратите внимание, что окружение table является \emph{плавающим} в~пределах раздела, и таблица может появиться не~там, где Вы ожидаете. Для размещения таблицы в~конкретное место необходимо воспользоваться опцией H из~пакета float (не~подключён).
+
 
 \subsection{Уравнение и формула}
 

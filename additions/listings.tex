@@ -13,58 +13,27 @@
 \usepackage{caption}
 \captionsetup[lstlisting]{justification=raggedright, singlelinecheck=false}
 
+
+\title{Демонстрация пакета listings\footnote{\url{https://github.com/ValeryVerkhoturov/mirea-kb2-programming-languages}}}
+\date{\today}
+
 \begin{document}
+	
+\maketitle
+\addtocounter{page}{1}
 	
 \tableofcontents
 	
-\section{Демонстрация пакета listings}
+\section{Документация listings}
 
-Документацию Listings см. в~\url{https://ctan.org/pkg/listings}.
+Документацию listings см. в~\url{https://ctan.org/pkg/listings}.
 
-\subsection{Шаблон для класса документа mirea-prog-lang}
-	
-См. листинг~\ref{lst:template}.
 
-\begin{lstlisting}[language={[LaTeX]{TeX}}, caption={Шаблон документа}, label=lst:template]
-\documentclass{mirea-prog-lang}
-
-\usepackage{hyperref}
-\hypersetup{pdftitle={My title}, pdfauthor={My initials and surname}, colorlinks=false, pdfborder={0 0 0}}
-
-\begin{document}
-
-	\begin{titlepage}
-		...
-	\end{titlepage}
-	
-	\begin{abstract}
-		...
-	\end{abstract}
-	
-	\tableofcontents
-	
-	% section name should be replaced
-	\section*{My introduction}
-	\phantomsection
-	% content's line name should be replaced
-	\addcontentsline{toc}{section}{My introduction}
-	...
-	
-	\section{...}
-	...
-	
-	\appendix
-	\section{...}
-	...
-	
-\end{document}
-\end{lstlisting}
-
-\subsection{Пример листинга для С++11}
+\section{Пример листинга для С++ ISO}
 
 См. листинг~\ref{lst:factorial}.
 
-\begin{lstlisting}[language={[11]{C++}}, caption={Нахождение факториала}, label=lst:factorial]
+\begin{lstlisting}[language={[ISO]{C++}}, caption={Нахождение факториала}, label=lst:factorial]
 #include <iostream>
 using namespace std;
 

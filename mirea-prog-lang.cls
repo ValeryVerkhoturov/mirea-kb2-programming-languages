@@ -2,7 +2,7 @@
 \ProvidesClass{mirea-prog-lang}[2022/07/12 Class for KB-2 1 course thesis]
 
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}} 
 \ProcessOptions\relax
 
 \LoadClass[14pt, a4paper, titlepage]{extarticle}
