@@ -75,7 +75,7 @@
 
 % Форматирование списков
 \RequirePackage{enumitem}
-\setlist{itemsep=0pt, parsep=0pt} % Возможна опция wide
+\setlist{itemsep=0pt, parsep=0pt, topsep=0mm} % Возможна опция wide
 \makeatletter
 \AddEnumerateCounter*{\asbuk}{\c@asbuk}
 \makeatother
